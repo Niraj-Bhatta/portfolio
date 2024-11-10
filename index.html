@@ -21,45 +21,28 @@
       rel="stylesheet"
     />
   </head>
-  <body>
-    <header>
-      <nav>
-        
-
-          <input type="checkbox"  id="check" name="" value="">
-          <label for="check" id="checkbtn"><i class="fa-solid fa-bars"></i></label>
-
-        
-
-
-
-
-
-          <a href="#firstsection"><div class="left">portfolio</div></a>
-        <div class="right">
-          <ul>
-            <li><a href="#firstsection">Home</a></li>
-            <li><a href="#third-section">About</a></li>
-            <li><a href="#secondsection">Projects</a></li>
-            <li><a href="#contactt">contact me</a></li>
-            <li>
-              <a href="https://www.youtube.com/@educationifyy">
-                visit youtube</a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+ <body>
+  <nav>
+    <input type="checkbox" id="check" name="" value="">
+    <label for="check" id="checkbtn"><i class="fa-solid fa-bars"></i></label>
+    <label class="logo">Portfolio</label>
+    <ul>
+    <li><a class="active"  href="#firstsection">Home</a></li>
+    <li><a href="#liness">About</a></li>
+    <li><a href="#firsthr">Projects</a></li>
+    <li><a href="#linesss">Contact</a></li>
+    <li><a href="https://www.youtube.com/@educationifyy">Visit Youtube</a></li>
+    </ul>
+  </nav>
     <main>
       <section id="firstsection">
         <div class="leftsection">
           Hi, My name is <span class="purple"> Niraj</span>
-          <div>and i am a</div>
+          <div class="textt">and i am a</div>
           <span id="element"><div>frontend developer</div></span>
           <div class="button">
-            <button class="btn-1">Download Resume</button>
-            <button class="btn-2">Visit Youtube</button>
+            <button class="btn-1"><a href="./resume.png" download="btn-1">Download Resume  <i class="fa-solid fa-circle-down"></i></a></button>
+            <button class="btn-2"><a href="https://www.youtube.com/@educationifyy"> <i class="fa-brands fa-youtube"></i> Visit Youtube</a></button>
           </div>
         </div>
 
@@ -68,7 +51,7 @@
         </div>
       </section>
 
-      <hr />
+      <hr id="firsthr">
 
       <section id="secondsection">
         <span class="text-gray"> My All Experiences and works </span>
@@ -197,7 +180,7 @@
           </div>
         </section>
       </section>
-      <hr id="liness" />
+      <hr id="liness">
 
       <section id="third-section">
         <div class="about-container">
@@ -217,9 +200,12 @@
           </div>
         </div>
       </section>
-      <hr id="linesss" />
+      
+      <hr id="linesss" >
+      
       <section class="contact-section">
         <div class="contact-container">
+          <form action="https://formspree.io/f/mjkvrvgg" method="POST">
           <h2 id="contactt">Contact Me</h2>
           <form class="contact-form" action="#" method="POST">
             <div class="form-group">
@@ -247,6 +233,7 @@
           </form>
         </div>
       </section>
+    </form>
     </main>
 
     <footer>
@@ -271,11 +258,14 @@
             </a>
           </div>
         </div>
+        <h3 id="email-contact"><i class="fa-regular fa-envelope"></i> bhattaniraj559@gmail.com</h3>
       </div>
       <div class="footer-rights">
         www.nirajbhatta559.tech | All @ rights reserved
       </div>
     </footer>
+
+
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
       var typed = new Typed("#element", {
