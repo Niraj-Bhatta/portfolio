@@ -1,0 +1,180 @@
+.experience-section {
+  position: relative;
+}
+
+.experience-glow {
+  opacity: 0.15 !important;
+}
+
+/* Timeline Base */
+.timeline-container {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto 0 auto;
+  padding-left: 60px; /* Space for line */
+}
+
+/* Central vertical track */
+.timeline-line {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent-blue) 0%,
+    var(--accent-purple) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  z-index: 1;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Circular Node Marker */
+.timeline-node {
+  position: absolute;
+  left: -30px;
+  top: 25px;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--card-border);
+  background-color: var(--bg);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.node-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Active Node State */
+.timeline-item.active .timeline-node {
+  box-shadow: 0 0 15px currentColor;
+}
+
+.timeline-item.active .node-dot {
+  transform: scale(1);
+}
+
+/* Content Panel */
+.timeline-content {
+  padding: 30px;
+  transform: translateX(40px);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.timeline-item.active .timeline-content {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Timeline Header */
+.timeline-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 12px;
+}
+
+.timeline-header .role {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: white;
+}
+
+.company-info {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.company {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.location {
+  color: var(--text-muted);
+}
+
+.timeline-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Timeline Footer */
+.timeline-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.date-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.tag-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.meta-icon {
+  color: var(--accent-blue);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .timeline-container {
+    padding-left: 45px;
+  }
+  .timeline-line {
+    left: 20px;
+  }
+  .timeline-node {
+    left: -25px;
+  }
+  .timeline-content {
+    padding: 20px;
+  }
+  .timeline-header .role {
+    font-size: 1.15rem;
+  }
+}

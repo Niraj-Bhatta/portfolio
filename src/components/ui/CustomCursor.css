@@ -1,0 +1,67 @@
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-blue);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate3d(-50%, -50%, 0);
+  pointer-events: none;
+  z-index: 10000;
+  box-shadow: 0 0 10px var(--accent-blue);
+  will-change: transform;
+}
+
+.custom-cursor-outer {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(var(--accent-blue-rgb), 0.4);
+  background-color: rgba(var(--accent-blue-rgb), 0.03);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate3d(-50%, -50%, 0);
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, transform 0.05s linear;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover States */
+.custom-cursor-dot.hovered {
+  transform: translate3d(-50%, -50%, 0) scale(1.5);
+  background-color: var(--accent-purple);
+  box-shadow: 0 0 15px var(--accent-purple);
+}
+
+.custom-cursor-outer.hovered {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(var(--accent-purple-rgb), 0.8);
+  background-color: rgba(var(--accent-purple-rgb), 0.08);
+  box-shadow: 0 0 20px rgba(var(--accent-purple-rgb), 0.2);
+}
+
+/* Click States */
+.custom-cursor-dot.clicked {
+  transform: translate3d(-50%, -50%, 0) scale(0.6);
+}
+
+.custom-cursor-outer.clicked {
+  transform: translate3d(-50%, -50%, 0) scale(0.9);
+  border-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Hide cursor on small viewports and touch-enabled devices */
+@media (max-width: 1024px) {
+  .custom-cursor-dot,
+  .custom-cursor-outer {
+    display: none !important;
+  }
+}

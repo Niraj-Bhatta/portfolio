@@ -1,0 +1,6 @@
+/* Main App specific custom layout overrides. Default styling is handled in index.css */
+.app-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}

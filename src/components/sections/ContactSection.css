@@ -1,0 +1,237 @@
+.contact-section {
+  position: relative;
+}
+
+.contact-glow {
+  opacity: 0.12 !important;
+}
+
+/* Grid Layout */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+/* Info Panel */
+.contact-info-panel {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  position: relative;
+}
+
+.info-header h3 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
+
+.info-header p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.info-icon {
+  color: var(--accent-blue);
+  background: rgba(var(--accent-blue-rgb), 0.08);
+  padding: 10px;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+}
+
+.info-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-details .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-details .val {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.info-details a.val:hover {
+  color: var(--accent-blue);
+}
+
+/* Map Wrapper */
+.map-wrapper {
+  width: 100%;
+  aspect-ratio: 2.1;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.world-map-svg {
+  filter: drop-shadow(0 0 10px rgba(var(--accent-blue-rgb), 0.1));
+}
+
+/* Contact Form Panel */
+.contact-form-panel {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Input group floating label setup */
+.input-group {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 15px 16px;
+  background-color: rgba(255, 255, 255, 0.015);
+  border: 1.5px solid var(--card-border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: white;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.input-group textarea {
+  height: 150px;
+  resize: none;
+}
+
+.input-group label {
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  color: var(--text-secondary);
+  pointer-events: none;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: left top;
+}
+
+.input-group.textarea-group label {
+  top: 15px;
+}
+
+/* Floating Label Shift */
+.input-group.float label,
+.input-group input:focus ~ label,
+.input-group textarea:focus ~ label {
+  transform: translateY(-26px) scale(0.85);
+  color: var(--accent-blue);
+  font-weight: 500;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px rgba(var(--accent-blue-rgb), 0.15);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Errors layout */
+.input-group.error input,
+.input-group.error textarea {
+  border-color: #ef4444;
+}
+
+.input-group.error label {
+  color: #ef4444;
+}
+
+.input-group.error input:focus,
+.input-group.error textarea:focus {
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+}
+
+.error-text {
+  position: absolute;
+  bottom: -18px;
+  left: 4px;
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px 0 !important;
+}
+
+/* Form Success */
+.form-success-message {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.success-icon {
+  color: #10b981;
+  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
+}
+
+.form-success-message h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: white;
+}
+
+.form-success-message p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+@media (max-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-info-panel,
+  .contact-form-panel {
+    padding: 24px;
+  }
+  .info-header h3 {
+    font-size: 1.4rem;
+  }
+}
