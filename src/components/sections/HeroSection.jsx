@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowDown, Mail } from 'lucide-react';
-import { Github, Linkedin } from '../ui/SocialIcons';
-import './HeroSection.css';
+import React, { useEffect, useRef, useState } from "react";
+import { ArrowDown, Mail } from "lucide-react";
+import { Github, Linkedin } from "../ui/SocialIcons";
+import "./HeroSection.css";
+import heroVideo from "../../assets/niraj-video.mp4";
 
 export default function HeroSection() {
   const videoRef = useRef(null);
@@ -22,7 +23,7 @@ export default function HeroSection() {
       video.currentTime = 0;
     };
 
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
     // Trigger if already loaded
     if (video.readyState >= 1) {
       handleLoadedMetadata();
@@ -30,17 +31,17 @@ export default function HeroSection() {
 
     // Scroll scrubbing animation
     let animationFrameId;
-    
+
     const handleScroll = () => {
       if (!video || !video.duration) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
       const scrollPos = window.scrollY;
       const height = rect.height;
-      
+
       // Calculate ratio within hero height
       const ratio = Math.min(Math.max(scrollPos / height, 0), 1);
-      
+
       // Set the target playback time based on scroll
       targetTime.current = ratio * video.duration;
     };
@@ -50,7 +51,7 @@ export default function HeroSection() {
         // Interpolate current time towards target time (lerp)
         const lerpFactor = 0.1; // lower means smoother
         const diff = targetTime.current - video.currentTime;
-        
+
         // Prevent microscopic changes that cause jitter
         if (Math.abs(diff) > 0.01) {
           video.currentTime += diff * lerpFactor;
@@ -59,14 +60,14 @@ export default function HeroSection() {
       animationFrameId = requestAnimationFrame(smoothVideoScrub);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     smoothVideoScrub();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(animationFrameId);
       if (video) {
-        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       }
     };
   }, []);
@@ -76,10 +77,11 @@ export default function HeroSection() {
     const target = document.querySelector(href);
     if (target) {
       const navHeight = 80;
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+      const targetPosition =
+        target.getBoundingClientRect().top + window.pageYOffset - navHeight;
       window.scrollTo({
         top: targetPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -91,12 +93,13 @@ export default function HeroSection() {
         <video
           ref={videoRef}
           className="hero-video"
-          preload="auto"
+          autoPlay
           muted
-          playsInline
           loop
-          src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-motherboard-with-glowing-blue-and-purple-lights-42232-large.mp4"
+          playsInline
+          src={heroVideo}
         />
+
         <div className="hero-overlay" />
       </div>
 
@@ -110,22 +113,23 @@ export default function HeroSection() {
           <span className="gradient-text-purple">Engineer</span>
         </h1>
         <p className="hero-subtitle animate-fade-in-up">
-          Building Intelligent Systems, Full-Stack Applications, and Innovative Engineering Solutions.
+          Building Intelligent Systems, Full-Stack Applications, and Innovative
+          Engineering Solutions.
         </p>
 
         {/* CTA Buttons */}
         <div className="hero-ctas animate-fade-in-up-delay">
-          <a 
-            href="#projects" 
+          <a
+            href="#projects"
             className="btn btn-primary"
-            onClick={(e) => handleCtaClick(e, '#projects')}
+            onClick={(e) => handleCtaClick(e, "#projects")}
           >
             View Projects
           </a>
-          <a 
-            href="#contact" 
+          <a
+            href="#contact"
             className="btn btn-secondary"
-            onClick={(e) => handleCtaClick(e, '#contact')}
+            onClick={(e) => handleCtaClick(e, "#contact")}
           >
             Contact Me
           </a>
@@ -133,20 +137,39 @@ export default function HeroSection() {
 
         {/* Social Quick-Links */}
         <div className="hero-socials animate-fade-in-up-delay">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon-btn" aria-label="GitHub">
+          <a
+            href="https://github.com/Niraj-Bhatta"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon-btn"
+            aria-label="GitHub"
+          >
             <Github size={20} />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon-btn" aria-label="LinkedIn">
+          <a
+            href="https://www.linkedin.com/in/nirajbhatta559/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon-btn"
+            aria-label="LinkedIn"
+          >
             <Linkedin size={20} />
           </a>
-          <a href="mailto:contact@niraj.io" className="social-icon-btn" aria-label="Email">
+          <a
+            href="mailto:bhattaniraj559@gmail.com"
+            className="social-icon-btn"
+            aria-label="Email"
+          >
             <Mail size={20} />
           </a>
         </div>
       </div>
 
       {/* Scroll Down Indicator */}
-      <div className="hero-scroll-indicator" onClick={(e) => handleCtaClick(e, '#about')}>
+      <div
+        className="hero-scroll-indicator"
+        onClick={(e) => handleCtaClick(e, "#about")}
+      >
         <span className="scroll-text">Explore Portfolio</span>
         <div className="scroll-mouse">
           <div className="scroll-wheel" />
