@@ -275,3 +275,11 @@
     -webkit-line-clamp: 2;
   }
 }
+
+@media (max-width: 480px) {
+  .project-card {
+    flex: 0 0 280px;
+    width: 280px;
+    height: 460px;
+  }
+}

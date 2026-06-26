@@ -46,7 +46,7 @@ function CertificateVector({ title, issuer, date, credId, accentColor }) {
       </g>
 
       {/* Certification details */}
-      <text x="400" y="210" textAnchor="middle" fill="#FFFFFF" fontSize="24" fontWeight="bold" fontFamily="sans-serif">NIRAJ KUMAR</text>
+      <text x="400" y="210" textAnchor="middle" fill="#FFFFFF" fontSize="24" fontWeight="bold" fontFamily="sans-serif">NIRAJ BHATTA</text>
       <text x="400" y="240" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="14" fontFamily="sans-serif">has successfully completed the coursework for</text>
       <text x="400" y="280" textAnchor="middle" fill={accentColor} fontSize="22" fontWeight="800" fontFamily="sans-serif">{title}</text>
       

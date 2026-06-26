@@ -165,3 +165,10 @@
     font-size: 0.75rem;
   }
 }
+
+@media (max-width: 375px) {
+  .stats-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

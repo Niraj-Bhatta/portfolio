@@ -217,6 +217,7 @@ export default function CanvasContainer() {
   return (
     <div 
       ref={containerRef} 
+      className="canvas-container"
       style={{
         position: 'fixed',
         top: 0,

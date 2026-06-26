@@ -4,3 +4,34 @@
   z-index: 1;
   width: 100%;
 }
+
+/* Under poster or playing, hide other components */
+.intro-poster nav,
+.intro-poster .canvas-container,
+.intro-poster main > *:not(#hero),
+.intro-poster footer,
+.intro-playing nav,
+.intro-playing .canvas-container,
+.intro-playing main > *:not(#hero),
+.intro-playing footer {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Transitions when entering finished state */
+.app-wrapper nav,
+.app-wrapper .canvas-container,
+.app-wrapper main > *,
+.app-wrapper footer {
+  transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
+}
+
+.intro-finished nav,
+.intro-finished .canvas-container,
+.intro-finished main > *,
+.intro-finished footer {
+  opacity: 1;
+  visibility: visible;
+}
+

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Send, Loader, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Send, Loader, CheckCircle, AlertTriangle } from 'lucide-react';
 import { Github, Linkedin } from '../ui/SocialIcons';
+import emailjs from '@emailjs/browser';
 import './ContactSection.css';
 
 // SVG Dot Grid Map Component with Pulsing coordinate pin
@@ -85,6 +86,7 @@ export default function ContactSection() {
   const [focusedField, setFocusedField] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const handleFocus = (field) => setFocusedField(field);
   const handleBlur = (field) => {
@@ -138,16 +140,39 @@ export default function ContactSection() {
     }
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate sending email
-    setTimeout(() => {
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      to_email: 'bhattaniraj559@gmail.com'
+    };
+
+    emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID || 'your_service_id',
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'your_template_id',
+      templateParams,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'your_public_key'
+    )
+    .then((response) => {
+      console.log('SUCCESS!', response.status, response.text);
       setIsSubmitting(false);
       setSubmitSuccess(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
       
-      // Dismiss success screen after 5 seconds
-      setTimeout(() => setSubmitSuccess(false), 5000);
-    }, 1500);
+      // Dismiss success screen after 6 seconds
+      setTimeout(() => setSubmitSuccess(false), 6000);
+    })
+    .catch((err) => {
+      console.error('FAILED...', err);
+      setIsSubmitting(false);
+      setSubmitError('Failed to send the message. Please try again or email directly.');
+      
+      // Clear error after 8 seconds
+      setTimeout(() => setSubmitError(null), 8000);
+    });
   };
 
   return (
@@ -169,21 +194,21 @@ export default function ContactSection() {
               <Mail className="info-icon" />
               <div className="info-details">
                 <span className="label">Email</span>
-                <a href="mailto:contact@niraj.io" className="val">contact@niraj.io</a>
+                <a href="mailto:bhattaniraj559@gmail.com" className="val">bhattaniraj559@gmail.com</a>
               </div>
             </div>
             <div className="info-item">
               <Linkedin className="info-icon" />
               <div className="info-details">
                 <span className="label">LinkedIn</span>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="val">linkedin.com/in/niraj</a>
+                <a href="https://www.linkedin.com/in/nirajbhatta559/" target="_blank" rel="noopener noreferrer" className="val">linkedin.com/in/nirajbhatta559</a>
               </div>
             </div>
             <div className="info-item">
               <Github className="info-icon" />
               <div className="info-details">
                 <span className="label">GitHub</span>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="val">github.com/niraj</a>
+                <a href="https://github.com/Niraj-Bhatta" target="_blank" rel="noopener noreferrer" className="val">github.com/Niraj-Bhatta</a>
               </div>
             </div>
             <div className="info-item">
@@ -273,6 +298,12 @@ export default function ContactSection() {
                 <label htmlFor="message">Your Message</label>
                 {formErrors.message && <span className="error-text">{formErrors.message}</span>}
               </div>
+
+              {submitError && (
+                <div className="form-error-message animate-fade-in" style={{ color: '#ef4444', marginBottom: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <AlertTriangle size={16} /> {submitError}
+                </div>
+              )}
 
               <button 
                 type="submit" 

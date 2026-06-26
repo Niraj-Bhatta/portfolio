@@ -1,6 +1,6 @@
 import React from 'react';
-import { Mail, ArrowUp } from 'lucide-react';
-import { Github, Linkedin } from '../ui/SocialIcons';
+import { ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon } from '../ui/SocialIcons';
 import './Footer.css';
 
 export default function Footer() {
@@ -22,14 +22,23 @@ export default function Footer() {
 
         {/* Center: Social Icons */}
         <div className="footer-socials">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="GitHub">
+          <a href="https://github.com/Niraj-Bhatta" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="GitHub">
             <Github size={18} />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/nirajbhatta559/" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="LinkedIn">
             <Linkedin size={18} />
           </a>
-          <a href="mailto:contact@niraj.io" className="social-btn" aria-label="Email">
-            <Mail size={18} />
+          <a href="https://instagram.com/your_instagram" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Instagram">
+            <Instagram size={18} />
+          </a>
+          <a href="https://facebook.com/your_facebook" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Facebook">
+            <Facebook size={18} />
+          </a>
+          <a href="https://youtube.com/your_youtube" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="YouTube">
+            <Youtube size={18} />
+          </a>
+          <a href="mailto:bhattaniraj559@gmail.com" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Email">
+            <MailIcon size={18} />
           </a>
         </div>
 

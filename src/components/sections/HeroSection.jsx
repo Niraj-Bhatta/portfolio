@@ -1,76 +1,135 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowDown, Mail } from "lucide-react";
-import { Github, Linkedin } from "../ui/SocialIcons";
+import { ArrowDown } from "lucide-react";
+import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon } from "../ui/SocialIcons";
 import "./HeroSection.css";
 import heroVideo from "../../assets/niraj-video.mp4";
 
-export default function HeroSection() {
+export default function HeroSection({ introState, setIntroState }) {
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const targetTime = useRef(0);
-  const isMobile = useRef(false);
 
+  // Handle video loading and initial pause at 0s
   useEffect(() => {
-    isMobile.current = window.innerWidth <= 768;
-
     const video = videoRef.current;
     if (!video) return;
 
-    // Load event
     const handleLoadedMetadata = () => {
       setIsVideoLoaded(true);
       video.currentTime = 0;
+      video.pause();
     };
 
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    // Trigger if already loaded
+    // If metadata is already loaded
     if (video.readyState >= 1) {
       handleLoadedMetadata();
     }
 
-    // Scroll scrubbing animation
-    let animationFrameId;
-
-    const handleScroll = () => {
-      if (!video || !video.duration) return;
-
-      const rect = sectionRef.current.getBoundingClientRect();
-      const scrollPos = window.scrollY;
-      const height = rect.height;
-
-      // Calculate ratio within hero height
-      const ratio = Math.min(Math.max(scrollPos / height, 0), 1);
-
-      // Set the target playback time based on scroll
-      targetTime.current = ratio * video.duration;
-    };
-
-    const smoothVideoScrub = () => {
-      if (video && video.duration && !isNaN(video.duration)) {
-        // Interpolate current time towards target time (lerp)
-        const lerpFactor = 0.1; // lower means smoother
-        const diff = targetTime.current - video.currentTime;
-
-        // Prevent microscopic changes that cause jitter
-        if (Math.abs(diff) > 0.01) {
-          video.currentTime += diff * lerpFactor;
-        }
-      }
-      animationFrameId = requestAnimationFrame(smoothVideoScrub);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    smoothVideoScrub();
-
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(animationFrameId);
       if (video) {
         video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       }
     };
   }, []);
+
+  // Listen for scroll/interaction events to trigger the intro play
+  useEffect(() => {
+    if (introState !== "poster") return;
+
+    const handleStartIntro = (e) => {
+      let shouldStart = false;
+
+      if (e.type === "wheel") {
+        if (e.deltaY > 0) shouldStart = true;
+      } else if (e.type === "keydown") {
+        if (["ArrowDown", "PageDown", " ", "End"].includes(e.key)) {
+          shouldStart = true;
+        }
+      } else if (e.type === "click") {
+        shouldStart = true;
+      }
+
+      if (shouldStart) {
+        setIntroState("playing");
+      }
+    };
+
+    // Track swipes on mobile (swiping up means scrolling down)
+    let touchStartY = 0;
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+    };
+    const handleTouchMove = (e) => {
+      const touchEndY = e.touches[0].clientY;
+      if (touchStartY - touchEndY > 10) {
+        setIntroState("playing");
+      }
+    };
+
+    window.addEventListener("wheel", handleStartIntro, { passive: true });
+    window.addEventListener("keydown", handleStartIntro);
+    window.addEventListener("click", handleStartIntro);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("wheel", handleStartIntro);
+      window.removeEventListener("keydown", handleStartIntro);
+      window.removeEventListener("click", handleStartIntro);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [introState, setIntroState]);
+
+  // Lock scroll, play video, and wait for 7 seconds to complete intro
+  useEffect(() => {
+    if (introState !== "playing") return;
+
+    const preventDefault = (e) => {
+      e.preventDefault();
+    };
+    const preventKeys = (e) => {
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", " ", "Home", "End"].includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    // Lock scrolling on window level
+    window.addEventListener("wheel", preventDefault, { passive: false });
+    window.addEventListener("touchmove", preventDefault, { passive: false });
+    window.addEventListener("keydown", preventKeys, { passive: false });
+
+    // Play video
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.currentTime = 0;
+      video.play().catch((err) => console.log("Video playback error: ", err));
+    }
+
+    // Lock for 7 seconds (duration of video)
+    const timer = setTimeout(() => {
+      setIntroState("finished");
+    }, 7000);
+
+    return () => {
+      window.removeEventListener("wheel", preventDefault);
+      window.removeEventListener("touchmove", preventDefault);
+      window.removeEventListener("keydown", preventKeys);
+      clearTimeout(timer);
+    };
+  }, [introState, setIntroState]);
+
+  // Make sure video keeps looping in background after intro finishes
+  useEffect(() => {
+    if (introState === "finished") {
+      const video = videoRef.current;
+      if (video && video.paused) {
+        video.play().catch((err) => console.log("Autoplay background error: ", err));
+      }
+    }
+  }, [introState]);
 
   const handleCtaClick = (e, href) => {
     e.preventDefault();
@@ -89,17 +148,15 @@ export default function HeroSection() {
   return (
     <section ref={sectionRef} id="hero" className="hero-container">
       {/* Cinematic Background Video Layer */}
-      <div className="hero-video-wrapper">
+      <div className={`hero-video-wrapper ${isVideoLoaded ? "visible" : ""}`}>
         <video
           ref={videoRef}
           className="hero-video"
-          autoPlay
           muted
           loop
           playsInline
           src={heroVideo}
         />
-
         <div className="hero-overlay" />
       </div>
 
@@ -156,11 +213,40 @@ export default function HeroSection() {
             <Linkedin size={20} />
           </a>
           <a
+            href="https://instagram.com/your_instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon-btn"
+            aria-label="Instagram"
+          >
+            <Instagram size={20} />
+          </a>
+          <a
+            href="https://facebook.com/your_facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon-btn"
+            aria-label="Facebook"
+          >
+            <Facebook size={20} />
+          </a>
+          <a
+            href="https://youtube.com/your_youtube"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon-btn"
+            aria-label="YouTube"
+          >
+            <Youtube size={20} />
+          </a>
+          <a
             href="mailto:bhattaniraj559@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="social-icon-btn"
             aria-label="Email"
           >
-            <Mail size={20} />
+            <MailIcon size={20} />
           </a>
         </div>
       </div>

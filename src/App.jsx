@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CustomCursor from './components/ui/CustomCursor';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -18,8 +18,21 @@ import ContactSection from './components/sections/ContactSection';
 import './App.css';
 
 export default function App() {
+  const [introState, setIntroState] = useState('poster'); // 'poster' | 'playing' | 'finished'
+
+  useEffect(() => {
+    if (introState === 'poster' || introState === 'playing') {
+      window.scrollTo(0, 0);
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+  }, [introState]);
+
   return (
-    <div className="app-wrapper">
+    <div className={`app-wrapper intro-${introState}`}>
       {/* Premium Custom Mouse Follower */}
       <CustomCursor />
 
@@ -31,7 +44,7 @@ export default function App() {
 
       {/* Portfolio Sections */}
       <main>
-        <HeroSection />
+        <HeroSection introState={introState} setIntroState={setIntroState} />
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />
