@@ -1,236 +1,226 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ExternalLink, Cpu, Shield, User, Globe, Calculator, Newspaper, Play } from 'lucide-react';
+import { ExternalLink, Cpu, Shield, User, Globe, Calculator, Newspaper, Play, Brain, Award } from 'lucide-react';
 import { Github } from '../ui/SocialIcons';
 import './ProjectsSection.css';
 
-// 3D Tilt Card Component
-function ProjectCard({ project }) {
-  const cardRef = useRef(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    
-    // Mouse coords relative to card bounding box
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Half width & height
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    // Calculate rotation angle (max 12deg tilt)
-    const rotateX = ((centerY - y) / centerY) * 12;
-    const rotateY = ((x - centerX) / centerX) * 12;
-    
-    setTilt({ x: rotateX, y: rotateY });
-  };
-
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-    setIsHovered(false);
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      className={`project-card glass-panel ${isHovered ? 'hovered' : ''}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={() => setIsHovered(true)}
-      style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(${isHovered ? 1.02 : 1}, ${isHovered ? 1.02 : 1}, 1)`,
-        transition: isHovered ? 'none' : 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)'
-      }}
-    >
-      {/* Decorative Card Header */}
-      <div className="card-top-bar">
-        <span className="window-dots">
-          <span></span><span></span><span></span>
-        </span>
-        <span className="card-category">{project.category}</span>
-      </div>
-
-      {/* Tech Preview Frame */}
-      <div className="project-preview">
-        <div className="preview-glow" style={{ background: `radial-gradient(circle at center, rgba(${project.glowColor}, 0.2) 0%, transparent 70%)` }} />
-        {project.previewIcon}
-        <div className="preview-decorations">
-          <div className="scan-line" />
-          <div className="grid-decor" />
-        </div>
-      </div>
-
-      {/* Card Body */}
-      <div className="project-details">
-        <h3 className="project-title">{project.title}</h3>
-        <p className="project-desc">{project.description}</p>
-        
-        <div className="project-tags">
-          {project.tags.map((tag) => (
-            <span key={tag} className="tag-badge">{tag}</span>
-          ))}
-        </div>
-
-        {/* Buttons */}
-        <div className="project-actions">
-          <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="btn btn-secondary action-btn">
-            <ExternalLink size={16} /> Demo
-          </a>
-          <a href={project.gitLink} target="_blank" rel="noopener noreferrer" className="btn btn-secondary action-btn">
-            <Github size={16} /> GitHub
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function ProjectsSection() {
-  const scrollContainerRef = useRef(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [imageErrors, setImageErrors] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
 
   const projects = [
     {
+      id: "parking",
       title: "Smart Parking System",
-      category: "IoT / Embedded",
+      filterCategory: "Other",
       description: "An automated real-time IoT solution using ESP32, IR sensors, and ultrasonic modules to detect stall occupancy. Synchronizes data with Firebase Realtime Database for live web app parking status and reservation mapping.",
       tags: ["ESP32", "Firebase", "C++ / Arduino", "React"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com",
+      imgName: "parking.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Cpu className="preview-icon glow-blue" size={48} />
     },
     {
+      id: "gov",
       title: "Government Document Verification System",
-      category: "Full-Stack Security",
+      filterCategory: "Web",
       description: "A secure digital portal utilizing cryptographic hashing and authorization nodes to verify state certificates and identity credentials, minimizing forgery and administrative overhead.",
       tags: ["Node.js", "Express", "React", "MongoDB", "Crypto"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com",
+      imgName: "verification.jpg",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Shield className="preview-icon glow-purple" size={48} />
     },
     {
+      id: "student",
       title: "Student Info Management System",
-      category: "Enterprise Software",
+      filterCategory: "Web",
       description: "A database-centric administration platform featuring automated student registry tracking, grading schemas, analytical reports, roles/permissions levels, and academic charting panels.",
       tags: ["React", "Express", "PostgreSQL", "Tailwind"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com",
+      imgName: "student.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <User className="preview-icon glow-blue" size={48} />
     },
     {
+      id: "deltaversity",
       title: "Deltaversity",
-      category: "EdTech Platform",
+      filterCategory: "Web",
       description: "An interactive educational environment providing online courses, visual lesson maps, peer discussion forums, testing portals, and instructor course construction suites.",
       tags: ["MERN Stack", "Firebase", "Socket.io", "Vite"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com",
+      imgName: "deltaversity.jpg",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Globe className="preview-icon glow-purple" size={48} />
     },
     {
+      id: "calculator",
       title: "Calculator",
-      category: "Utility Application",
+      filterCategory: "Other",
       description: "A high-performance calculator app featuring clean layouts, historical calculation memories, modular equations parsing, scientific operational triggers, and visual grid transitions.",
       tags: ["HTML5", "CSS3 Modules", "Vanilla JS"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com",
+      imgName: "calculator.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Calculator className="preview-icon glow-blue" size={48} />
     },
     {
+      id: "news",
       title: "News Portal",
-      category: "Full-Stack Web App",
+      filterCategory: "Web",
       description: "A comprehensive media publication engine fetching international stories, incorporating customized categorization panels, reader review threads, bookmarks collection, and article caching layers.",
       tags: ["React", "Node.js", "MongoDB", "NewsAPI"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com",
+      imgName: "news.jpg",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Newspaper className="preview-icon glow-purple" size={48} />
     },
     {
+      id: "tictactoe",
       title: "Tic Tac Toe Game",
-      category: "Interactive Gaming",
+      filterCategory: "Other",
       description: "A responsive tic-tac-toe application with custom local matches, score logs, smart AI agent modes using minimax evaluations, visual grid glows, and audio-sfx triggers.",
       tags: ["React", "CSS Grid", "Minimax AI"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com",
+      imgName: "tictactoe.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Play className="preview-icon glow-blue" size={48} />
+    },
+    {
+      id: "tumor",
+      title: "Brain Tumor Classification Model",
+      filterCategory: "ML",
+      description: "An advanced machine learning framework using Convolutional Neural Networks (CNNs) to classify brain tumor types from MRI scans with high accuracy, featuring automated data augmentation and model validation.",
+      tags: ["Python", "TensorFlow", "CNN", "Keras", "OpenCV"],
+      liveLink: "https://demo.example.com",
+      gitLink: "https://github.com",
+      imgName: "tumor.jpg",
+      glowColor: "124, 58, 237", // Purple
+      previewIcon: <Brain className="preview-icon glow-purple" size={48} />
+    },
+    {
+      id: "stock",
+      title: "Predictive Stock Market Analytics",
+      filterCategory: "ML",
+      description: "A time-series forecasting model utilizing LSTM neural networks to analyze historical stock datasets and predict prospective valuation directions, integrating live Yahoo Finance data pipelines.",
+      tags: ["Python", "Scikit-Learn", "LSTM", "Pandas", "Streamlit"],
+      liveLink: "https://demo.example.com",
+      gitLink: "https://github.com",
+      imgName: "stock.jpg",
+      glowColor: "0, 212, 255", // Blue
+      previewIcon: <Award className="preview-icon glow-blue" size={48} />
     }
   ];
 
-  const handleScroll = () => {
-    if (!scrollContainerRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-    
-    // Add small buffer to avoid floating-point errors
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
-  };
+  const categories = ['All', 'Web', 'ML', 'Other'];
 
-  const scrollLeft = () => {
-    if (!scrollContainerRef.current) return;
-    scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-  };
+  const filteredProjects = activeFilter === 'All'
+    ? projects
+    : projects.filter(p => p.filterCategory === activeFilter);
 
-  const scrollRight = () => {
-    if (!scrollContainerRef.current) return;
-    scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
+  const handleImageError = (projectId) => {
+    setImageErrors(prev => ({ ...prev, [projectId]: true }));
   };
-
-  useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (el) {
-      el.addEventListener('scroll', handleScroll);
-      // Run once initially
-      handleScroll();
-    }
-    return () => {
-      if (el) el.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
-    <section id="projects" className="section-container projects-section">
+    <section 
+      ref={sectionRef} 
+      id="projects" 
+      className={`section-container projects-section scroll-reveal ${isVisible ? 'visible' : ''}`}
+    >
       <div className="glow-bg projects-glow" style={{ top: '30%', left: '5%', width: '380px', height: '380px', backgroundColor: 'var(--accent-blue)' }} />
       
-      <h2 className="section-title">Featured Projects</h2>
+      <h2 className="section-title">Projects</h2>
 
-      {/* Slider Layout wrapper */}
-      <div className="projects-slider-wrapper">
-        {canScrollLeft && (
-          <button className="slider-btn btn-left" onClick={scrollLeft} aria-label="Scroll Left">
-            &#8249;
+      {/* Categories Filter Panel */}
+      <div className="filter-container">
+        {categories.map(cat => (
+          <button
+            key={cat}
+            className={`filter-btn ${activeFilter === cat ? 'active' : ''}`}
+            onClick={() => setActiveFilter(cat)}
+          >
+            {cat}
           </button>
-        )}
-        
-        <div 
-          ref={scrollContainerRef} 
-          className="projects-horizontal-scroll"
-        >
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
-        </div>
-
-        {canScrollRight && (
-          <button className="slider-btn btn-right" onClick={scrollRight} aria-label="Scroll Right">
-            &#8250;
-          </button>
-        )}
+        ))}
       </div>
 
-      <div className="scroll-hint">
-        <span className="hint-line" />
-        <span className="hint-text">Shift + Scroll horizontally or drag</span>
-        <span className="hint-line" />
+      {/* Projects Grid Layout */}
+      <div className="projects-grid">
+        {filteredProjects.map((project) => (
+          <div key={project.id} className="project-card glass-panel">
+            {/* Top window styling decor */}
+            <div className="card-top-bar">
+              <span className="window-dots">
+                <span></span><span></span><span></span>
+              </span>
+              <span className="card-category">{project.filterCategory}</span>
+            </div>
+
+            {/* Cover Image Wrapper */}
+            <div className="project-image-wrapper">
+              {imageErrors[project.id] ? (
+                <div className="project-placeholder" style={{ background: `radial-gradient(circle at center, rgba(${project.glowColor}, 0.15) 0%, transparent 70%)` }}>
+                  {project.previewIcon}
+                  <div className="placeholder-text">Placeholder Preview</div>
+                  <div className="placeholder-scanline" />
+                </div>
+              ) : (
+                <img
+                  src={`/assets/projects/${project.imgName}`}
+                  alt={project.title}
+                  className="project-cover-image"
+                  onError={() => handleImageError(project.id)}
+                />
+              )}
+            </div>
+
+            {/* Project Details */}
+            <div className="project-details">
+              <h3 className="project-title">{project.title}</h3>
+              <p className="project-desc">{project.description}</p>
+              
+              <div className="project-tags">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="tag-badge">{tag}</span>
+                ))}
+              </div>
+
+              {/* Actions */}
+              <div className="project-actions">
+                <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary action-btn">
+                  <ExternalLink size={16} /> Live Demo
+                </a>
+                <a href={project.gitLink} target="_blank" rel="noopener noreferrer" className="btn btn-secondary action-btn">
+                  <Github size={16} /> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -63,8 +63,8 @@ export default function Navbar() {
       <div className="navbar-content">
         {/* Logo */}
         <a href="#hero" className="navbar-logo" onClick={(e) => handleLinkClick(e, '#hero')}>
-          <Terminal size={22} className="logo-icon" />
-          <span className="logo-text">Niraj<span className="dot">.IO</span></span>
+          <div className="logo-badge">NB</div>
+          <span className="logo-text">Niraj<span className="dot">.Bhatta</span></span>
         </a>
 
         {/* Desktop Links */}
@@ -79,6 +79,14 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
+          <a 
+            href="./assets/resume/resume.pdf" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-resume nav-cta"
+          >
+            View Resume
+          </a>
           <a 
             href="#contact" 
             className="btn btn-primary nav-cta"
@@ -111,6 +119,14 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
+          <a 
+            href="./assets/resume/resume.pdf" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-resume mobile-cta"
+          >
+            View Resume
+          </a>
           <a 
             href="#contact" 
             className="btn btn-primary mobile-cta"

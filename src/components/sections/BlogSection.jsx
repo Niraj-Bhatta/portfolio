@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, Calendar, Clock, ArrowRight, Loader } from 'lucide-react';
 import './BlogSection.css';
 
@@ -7,6 +7,23 @@ export default function BlogSection() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(3);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
 
   const blogPosts = [
     {
@@ -100,7 +117,11 @@ export default function BlogSection() {
   const regularPosts = filteredPosts.filter(p => !p.featured || (activeCategory !== 'All' && p.featured));
 
   return (
-    <section id="blog" className="section-container blog-section">
+    <section 
+      ref={sectionRef}
+      id="blog" 
+      className={`section-container blog-section scroll-reveal ${isVisible ? 'visible' : ''}`}
+    >
       <div className="glow-bg blog-glow" style={{ top: '10%', left: '5%', width: '300px', height: '300px', backgroundColor: 'var(--accent-blue)' }} />
 
       <h2 className="section-title">Tech Blog</h2>

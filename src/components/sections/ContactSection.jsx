@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Mail, MapPin, Send, Loader, CheckCircle, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Mail, MapPin, Send, Loader, CheckCircle, AlertTriangle, X } from 'lucide-react';
 import { Github, Linkedin } from '../ui/SocialIcons';
-import emailjs from '@emailjs/browser';
 import './ContactSection.css';
 
 // SVG Dot Grid Map Component with Pulsing coordinate pin
@@ -15,10 +14,8 @@ function WorldMapDotGrid() {
         </radialGradient>
       </defs>
       
-      {/* Dynamic Background Grid Pattern */}
       <rect width="1000" height="480" fill="none" />
 
-      {/* Abstract Grid Map points representing world continents */}
       {/* North America */}
       <circle cx="150" cy="120" r="2" fill="rgba(255,255,255,0.15)" />
       <circle cx="180" cy="130" r="2" fill="rgba(255,255,255,0.15)" />
@@ -62,18 +59,15 @@ function WorldMapDotGrid() {
       <path d="M 500 160 Q 610 140 720 180" fill="none" stroke="rgba(0, 212, 255, 0.15)" strokeWidth="1" strokeDasharray="4 4" />
       <path d="M 230 150 Q 470 120 720 180" fill="none" stroke="rgba(124, 58, 237, 0.15)" strokeWidth="1" strokeDasharray="4 4" />
 
-      {/* Engineer Location Coordinate: Lalitpur/Kathmandu, Nepal (~720, 180 coordinate area on projection grid) */}
+      {/* Engineer Location: Lalitpur/Kathmandu, Nepal */}
       <g transform="translate(720, 180)">
-        {/* Pulsing ring 1 */}
         <circle cx="0" cy="0" r="18" fill="url(#ping-glow)">
           <animate attributeName="r" values="5;24;5" dur="3s" repeatCount="indefinite" />
           <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" repeatCount="indefinite" />
         </circle>
-        {/* Pulsing ring 2 */}
         <circle cx="0" cy="0" r="10" fill="none" stroke="#00d4ff" strokeWidth="1.5">
           <animate attributeName="r" values="2;12;2" dur="2s" repeatCount="indefinite" />
         </circle>
-        {/* Solid center dot */}
         <circle cx="0" cy="0" r="4" fill="#00d4ff" />
       </g>
     </svg>
@@ -87,6 +81,25 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const [toast, setToast] = useState({ show: false, message: '', type: '' }); // type: 'success' | 'error'
+
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
 
   const handleFocus = (field) => setFocusedField(field);
   const handleBlur = (field) => {
@@ -118,6 +131,18 @@ export default function ContactSection() {
     }
   };
 
+  const showToast = (message, type) => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast(prev => {
+        if (prev.message === message) {
+          return { show: false, message: '', type: '' };
+        }
+        return prev;
+      });
+    }, 5000);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -136,6 +161,7 @@ export default function ContactSection() {
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
+      showToast("Validation failed. Please correct form errors.", "error");
       return;
     }
 
@@ -150,36 +176,67 @@ export default function ContactSection() {
       to_email: 'bhattaniraj559@gmail.com'
     };
 
-    emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID || 'your_service_id',
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'your_template_id',
-      templateParams,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'your_public_key'
-    )
-    .then((response) => {
-      console.log('SUCCESS!', response.status, response.text);
+    try {
+      const emailjsLib = window.emailjs;
+      if (!emailjsLib) {
+        throw new Error("EmailJS library failed to load via CDN. Check your internet connection.");
+      }
+
+      emailjsLib.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_p1lyph9',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_y3cve2b',
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'j_R_tNqK34q4oU79X'
+      )
+      .then((response) => {
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        showToast("Message sent successfully! Thank you.", "success");
+        
+        // Dismiss success state after 6 seconds
+        setTimeout(() => setSubmitSuccess(false), 6000);
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        const errMsg = err?.text || err?.message || 'Failed to send message via EmailJS.';
+        setSubmitError(errMsg);
+        showToast(`Error: ${errMsg}`, "error");
+      });
+    } catch (err) {
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      // Dismiss success screen after 6 seconds
-      setTimeout(() => setSubmitSuccess(false), 6000);
-    })
-    .catch((err) => {
-      console.error('FAILED...', err);
-      setIsSubmitting(false);
-      setSubmitError('Failed to send the message. Please try again or email directly.');
-      
-      // Clear error after 8 seconds
-      setTimeout(() => setSubmitError(null), 8000);
-    });
+      const errMsg = err?.message || 'A critical error occurred while submitting the form.';
+      setSubmitError(errMsg);
+      showToast(`Uncaught Error: ${errMsg}`, "error");
+    }
   };
 
   return (
-    <section id="contact" className="section-container contact-section">
+    <section 
+      ref={sectionRef}
+      id="contact" 
+      className={`section-container contact-section scroll-reveal ${isVisible ? 'visible' : ''}`}
+    >
       <div className="glow-bg contact-glow" style={{ bottom: '15%', left: '10%', width: '380px', height: '380px', backgroundColor: 'var(--accent-purple)' }} />
 
       <h2 className="section-title">Get In Touch</h2>
+
+      {/* Floating Toast Notification System */}
+      {toast.show && (
+        <div className={`toast-notification ${toast.type}`}>
+          <div className="toast-icon-wrapper">
+            {toast.type === 'success' ? <CheckCircle size={18} /> : <AlertTriangle size={18} />}
+          </div>
+          <span className="toast-message">{toast.message}</span>
+          <button 
+            className="toast-close" 
+            onClick={() => setToast({ show: false, message: '', type: '' })}
+            aria-label="Close notification"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
 
       <div className="contact-grid">
         {/* Left: Contact Info & Map */}
@@ -220,7 +277,6 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Interactive World Map background layer */}
           <div className="map-wrapper">
             <WorldMapDotGrid />
           </div>
@@ -309,6 +365,7 @@ export default function ContactSection() {
                 type="submit" 
                 className="btn btn-primary submit-btn"
                 disabled={isSubmitting}
+                style={{ minHeight: '44px' }} /* Enforce min 44px touch target height */
               >
                 {isSubmitting ? (
                   <>

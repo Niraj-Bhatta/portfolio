@@ -77,7 +77,11 @@ export default function AchievementsSection() {
   ];
 
   return (
-    <section ref={sectionRef} id="achievements" className="section-container achievements-section">
+    <section 
+      ref={sectionRef} 
+      id="achievements" 
+      className={`section-container achievements-section scroll-reveal ${isVisible ? 'visible' : ''}`}
+    >
       <div className="glow-bg achievements-glow" style={{ top: '20%', right: '5%', width: '300px', height: '300px', backgroundColor: 'var(--accent-purple)' }} />
 
       <h2 className="section-title">Achievements</h2>

@@ -18,10 +18,10 @@ import ContactSection from './components/sections/ContactSection';
 import './App.css';
 
 export default function App() {
-  const [introState, setIntroState] = useState('poster'); // 'poster' | 'playing' | 'finished'
+  const [introState, setIntroState] = useState('playing'); // 'playing' | 'finished'
 
   useEffect(() => {
-    if (introState === 'poster' || introState === 'playing') {
+    if (introState === 'playing') {
       window.scrollTo(0, 0);
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';

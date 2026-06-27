@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="footer-content">
         {/* Left: Branding */}
         <div className="footer-brand">
-          <span className="brand-logo">Niraj<span className="dot">.IO</span></span>
+          <span className="brand-logo">Niraj<span className="dot">.Bhatta</span></span>
           <p className="brand-tagline">Building the systems of tomorrow, today.</p>
         </div>
 

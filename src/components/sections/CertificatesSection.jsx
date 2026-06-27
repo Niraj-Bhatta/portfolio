@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Award, Calendar, CheckCircle, ExternalLink, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Award, Calendar, CheckCircle, ExternalLink, X, Eye } from 'lucide-react';
 import './CertificatesSection.css';
 
-// SVG Certificate Vector Mockup Component
+// SVG Certificate Vector Mockup Component (used as lightbox preview and fallback)
 function CertificateVector({ title, issuer, date, credId, accentColor }) {
   return (
     <svg viewBox="0 0 800 500" width="100%" height="100%" className="certificate-svg" xmlns="http://www.w3.org/2000/svg">
@@ -72,6 +72,24 @@ function CertificateVector({ title, issuer, date, credId, accentColor }) {
 export default function CertificatesSection() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [selectedCert, setSelectedCert] = useState(null);
+  const [imageErrors, setImageErrors] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
 
   const certificates = [
     {
@@ -83,6 +101,7 @@ export default function CertificatesSection() {
       credId: "UC-IOT-9481A",
       verifyLink: "https://coursera.org/verify",
       accentColor: "#00d4ff",
+      imgName: "iot.jpg",
       desc: "Comprehensive coursework on embedded firmware design, sensor-hardware integration, protocol stacks (MQTT, HTTP), and serial interfaces."
     },
     {
@@ -94,6 +113,7 @@ export default function CertificatesSection() {
       credId: "GCP-ACE-7721X",
       verifyLink: "https://google.com/cloud",
       accentColor: "#7c3aed",
+      imgName: "gcp.jpg",
       desc: "Rigorous certification covering virtual machine provision configurations, Kubernetes clusters, IAM access controls, and database operations."
     },
     {
@@ -105,6 +125,7 @@ export default function CertificatesSection() {
       credId: "AWS-SAA-8822B",
       verifyLink: "https://aws.amazon.com",
       accentColor: "#00d4ff",
+      imgName: "aws.jpg",
       desc: "Validation of expertise in designing highly available, cost-efficient, fault-tolerant, and scalable AWS cloud infrastructure architectures."
     },
     {
@@ -116,6 +137,7 @@ export default function CertificatesSection() {
       credId: "META-FS-2098D",
       verifyLink: "https://coursera.org/verify",
       accentColor: "#7c3aed",
+      imgName: "meta.jpg",
       desc: "A 9-course professional specialization program focusing on React development, Django server APIs, database queries, and deployment architectures."
     },
     {
@@ -127,6 +149,7 @@ export default function CertificatesSection() {
       credId: "MONGO-DEV-5541L",
       verifyLink: "https://mongodb.com",
       accentColor: "#00d4ff",
+      imgName: "mongodb.jpg",
       desc: "Validation of expertise in schema mapping configurations, indexing algorithms, aggregation pipeline designs, and data modeling best practices."
     }
   ];
@@ -137,8 +160,16 @@ export default function CertificatesSection() {
     ? certificates
     : certificates.filter(c => c.category === activeFilter);
 
+  const handleImageError = (certId) => {
+    setImageErrors(prev => ({ ...prev, [certId]: true }));
+  };
+
   return (
-    <section id="certificates" className="section-container certificates-section">
+    <section 
+      ref={sectionRef} 
+      id="certificates" 
+      className={`section-container certificates-section scroll-reveal ${isVisible ? 'visible' : ''}`}
+    >
       <div className="glow-bg certificates-glow" style={{ bottom: '10%', right: '5%', width: '320px', height: '320px', backgroundColor: 'var(--accent-purple)' }} />
 
       <h2 className="section-title">Certifications</h2>
@@ -159,25 +190,35 @@ export default function CertificatesSection() {
       {/* Certification Cards Grid */}
       <div className="certs-grid">
         {filteredCerts.map((cert) => (
-          <div
-            key={cert.id}
-            className="cert-card glass-panel"
-            onClick={() => setSelectedCert(cert)}
-          >
+          <div key={cert.id} className="cert-card glass-panel">
             <div className="cert-badge-icon" style={{ backgroundColor: `${cert.accentColor}1A`, color: cert.accentColor }}>
               <Award size={20} />
             </div>
             
-            <div className="cert-thumbnail">
-              <CertificateVector 
-                title={cert.title} 
-                issuer={cert.issuer} 
-                date={cert.date} 
-                credId={cert.credId} 
-                accentColor={cert.accentColor} 
-              />
+            {/* Thumbnail: Sourced or Fallback Vector mockup */}
+            <div className="cert-thumbnail" onClick={() => setSelectedCert(cert)}>
+              {imageErrors[cert.id] ? (
+                <div className="vector-thumbnail-wrapper">
+                  <CertificateVector 
+                    title={cert.title} 
+                    issuer={cert.issuer} 
+                    date={cert.date} 
+                    credId={cert.credId} 
+                    accentColor={cert.accentColor} 
+                  />
+                </div>
+              ) : (
+                <img
+                  src={`/assets/certificates/${cert.imgName}`}
+                  alt={cert.title}
+                  className="cert-img"
+                  onError={() => handleImageError(cert.id)}
+                />
+              )}
               <div className="thumbnail-overlay">
-                <span className="expand-text">Click to View Details</span>
+                <span className="expand-text">
+                  <Eye size={18} /> Preview Certificate
+                </span>
               </div>
             </div>
 
@@ -188,6 +229,9 @@ export default function CertificatesSection() {
                 <Calendar size={14} className="meta-icon" />
                 <span>{cert.date}</span>
               </div>
+              <button className="btn btn-secondary view-details-btn" onClick={() => setSelectedCert(cert)}>
+                View Details
+              </button>
             </div>
           </div>
         ))}
@@ -202,7 +246,7 @@ export default function CertificatesSection() {
             </button>
 
             <div className="lightbox-body">
-              {/* Left: Certificate Vector */}
+              {/* Left: Certificate Visual Vector */}
               <div className="lightbox-visual">
                 <CertificateVector 
                   title={selectedCert.title} 
