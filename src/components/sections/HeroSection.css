@@ -9,6 +9,25 @@
   overflow: hidden;
   padding: 0 24px;
   background-color: var(--bg);
+
+  /* Animation constants and variable design system tokens */
+  --translate-y-amount: 30px;
+  --anim-duration: 1.2s;
+  --char-stagger: 0.12s;
+  --char-duration: 0.6s;
+  --char-translate-y: 20px;
+  --char-scale: 0.9;
+  --indicator-start-bottom: 40px;
+}
+
+/* Adaptive values for lower-end hardware and 30 FPS mode */
+.hero-container.perf-low {
+  --translate-y-amount: 12px;
+  --anim-duration: 0.7s;
+  --char-stagger: 0.05s;
+  --char-duration: 0.4s;
+  --char-translate-y: 8px;
+  --char-scale: 0.95;
 }
 
 /* Background video */
@@ -37,6 +56,10 @@
   background-color: #060816;
   display: block;
   transition: opacity 1.5s ease-in-out;
+  
+  /* Force GPU composite for expensive saturate/contrast rendering */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .hero-overlay {
@@ -150,9 +173,9 @@
 /* Scroll Indicator */
 .hero-scroll-indicator {
   position: absolute;
-  bottom: 40px;
+  bottom: var(--indicator-start-bottom);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   z-index: 10;
 
   display: flex;
@@ -160,23 +183,20 @@
   align-items: center;
   gap: 10px;
 
+  /* Run positioning animation using translate3d offsets to prevent layout thrashing */
   animation: moveRight 1s ease forwards,
              hideIndicator 0.5s ease forwards 2s;
 }
 
 @keyframes moveRight {
   from {
-    left: 50%;
-    bottom: 40px;
     opacity: 0.8;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 
   to {
-    left: 85%;      /* move to right side */
-    bottom: 50%;    /* vertically centered */
     opacity: 1;
-    transform: translate(-50%, 50%);
+    transform: translate3d(calc(-50% + 35vw), calc(-50vh + var(--indicator-start-bottom)), 0);
   }
 }
 
@@ -233,45 +253,91 @@
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translate3d(0, var(--translate-y-amount), 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translate3d(0, calc(-1 * var(--translate-y-amount)), 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 .animate-fade-in-down {
-  animation: fadeInDown 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: fadeInDown var(--anim-duration) cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .animate-title {
-  animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+  animation: fadeInUp var(--anim-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
   opacity: 0;
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+  animation: fadeInUp var(--anim-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
   opacity: 0;
 }
 
 .animate-fade-in-up-delay {
-  animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards;
+  animation: fadeInUp var(--anim-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards;
   opacity: 0;
+}
+
+/* Active hardware acceleration during transitions to prevent layout thrashing */
+.intro-playing:not(.perf-low) .char {
+  will-change: transform, opacity;
+}
+
+/* On low-performance mobile devices, promote the container instead of individual character layers */
+.intro-playing.perf-low .intro-name-background {
+  will-change: transform, opacity;
+}
+
+/* Promote content elements during entry transitions and clean them up afterwards */
+.intro-finished .hero-content.animating .hero-badge,
+.intro-finished .hero-content.animating .hero-title,
+.intro-finished .hero-content.animating .hero-subtitle,
+.intro-finished .hero-content.animating .hero-ctas,
+.intro-finished .hero-content.animating .hero-socials,
+.intro-finished .hero-content.animating {
+  will-change: transform, opacity;
+}
+
+/* Respect OS-level motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .char,
+  .hero-content,
+  .hero-badge,
+  .hero-title,
+  .hero-subtitle,
+  .hero-ctas,
+  .hero-socials,
+  .hero-scroll-indicator {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+  
+  .intro-name-background .char {
+    opacity: 0.12 !important;
+  }
+
+  .hero-video-wrapper {
+    transition: none !important;
+  }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hero-container {
+    --indicator-start-bottom: 20px;
+  }
   .hero-title {
     font-size: 3rem;
     letter-spacing: -1px;
   }
   .hero-subtitle {
     font-size: 1.1rem;
-  }
-  .hero-scroll-indicator {
-    bottom: 20px;
   }
 }
 
@@ -316,7 +382,7 @@
   width: 100%;
   pointer-events: none;
   user-select: none;
-  transform: translateY(50px);
+  transform: translate3d(0, 50px, 0);
 }
 
 .intro-name-row {
@@ -335,10 +401,9 @@
 .intro-name-background .char {
   display: inline-block;
   opacity: 0;
-  filter: blur(10px);
-  transform: scale(0.9);
-  animation: typeChar 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  animation-delay: calc(var(--char-index) * 0.12s + 0.3s);
+  transform: translate3d(0, var(--char-translate-y), 0) scale(var(--char-scale));
+  animation: typeChar var(--char-duration) cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: calc(var(--char-index) * var(--char-stagger) + 0.3s);
   text-shadow: 0 0 25px rgba(236, 224, 209, 0.3),
                0 0 50px rgba(0, 212, 255, 0.15);
 }
@@ -346,8 +411,7 @@
 @keyframes typeChar {
   to {
     opacity: 0.12; /* Reduced opacity for overlay look */
-    filter: blur(0);
-    transform: scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -382,7 +446,7 @@
 
 .hero-content {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translate3d(0, -10px, 0);
   transition: none;
 }
 
@@ -394,11 +458,11 @@
 @keyframes heroTextReveal {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translate3d(0, -10px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
