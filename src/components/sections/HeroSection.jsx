@@ -48,9 +48,8 @@ IntroOverlay.displayName = "IntroOverlay";
 const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick }) => {
   return (
     <div
-      className={`hero-content ${isFinished ? "intro-finished" : "intro-playing"} ${
-        isAnimating ? "animating" : ""
-      }`}
+      className={`hero-content ${isFinished ? "intro-finished" : "intro-playing"} ${isAnimating ? "animating" : ""
+        }`}
     >
       <p className="hero-badge animate-fade-in-down">
         <span>•</span> Available for Opportunities
