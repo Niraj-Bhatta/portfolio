@@ -35,18 +35,18 @@ export default function HeroSection({ introState, setIntroState }) {
     };
   }, []);
 
-  // 7s Cinematic Timers
+  // 5s Cinematic Timers
   useEffect(() => {
     // at 3.5s: fade out
     const fadeOutTimer = setTimeout(() => {
       setIntroStep('fadeout');
     }, 3500);
 
-    // at 7s: complete intro and enable scroll
+    // at 5s: complete intro and enable scroll
     const finishTimer = setTimeout(() => {
       setIntroStep('done');
       setIntroState('finished');
-    }, 7000);
+    }, 5000);
 
     return () => {
       clearTimeout(fadeOutTimer);
@@ -83,12 +83,33 @@ export default function HeroSection({ introState, setIntroState }) {
         <div className="hero-overlay" />
       </div>
 
-      {/* Cinematic Name Animation Overlay (0s to 7s) */}
+      {/* Cinematic Name Animation Overlay (3 stacked layers) */}
       {introStep !== 'done' && (
         <div className={`intro-name-overlay ${introStep}`}>
-          <div className="intro-profile-wrapper">
-            <img src={profilePhoto} alt="Niraj Bhatta" className="intro-profile-img" />
-            <h1 className="intro-name">NIRAJ BHATTA</h1>
+          {/* Layer 2: Text "NIRAJ BHATTA" (Middle Layer) */}
+          <div className="intro-name-background">
+            <div className="intro-name-row">
+              {"NIRAJ".split("").map((char, index) => (
+                <span
+                  key={index}
+                  className="char"
+                  style={{ "--char-index": index }}
+                >
+                  {char}
+                </span>
+              ))}
+            </div>
+            <div className="intro-name-row">
+              {"BHATTA".split("").map((char, index) => (
+                <span
+                  key={index + 5}
+                  className="char"
+                  style={{ "--char-index": index + 5 }}
+                >
+                  {char}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -163,7 +184,7 @@ export default function HeroSection({ introState, setIntroState }) {
             <Instagram size={20} />
           </a>
           <a
-            href="https://facebook.com/your_facebook"
+            href="https://www.facebook.com/niraj.bhatta.1420"
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon-btn"
@@ -172,7 +193,7 @@ export default function HeroSection({ introState, setIntroState }) {
             <Facebook size={20} />
           </a>
           <a
-            href="https://youtube.com/educationifyy"
+            href="https://youtube.com/@educationifyy"
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon-btn"

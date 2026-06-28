@@ -168,25 +168,22 @@ export default function ContactSection() {
     setIsSubmitting(true);
     setSubmitError(null);
 
-    const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      subject: formData.subject,
-      message: formData.message,
-      to_email: 'bhattaniraj559@gmail.com'
-    };
-
     try {
       const emailjsLib = window.emailjs;
       if (!emailjsLib) {
         throw new Error("EmailJS library failed to load via CDN. Check your internet connection.");
       }
 
-      emailjsLib.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_p1lyph9',
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_y3cve2b',
-        templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'j_R_tNqK34q4oU79X'
+      // Initialize EmailJS with a Public Key placeholder
+      // --- REPLACE "YOUR_PUBLIC_KEY" with your actual EmailJS Public Key ---
+      emailjsLib.init("YOUR_PUBLIC_KEY");
+
+      // On form submit, send form data using sendForm
+      // --- REPLACE "YOUR_SERVICE_ID" and "YOUR_TEMPLATE_ID" with your actual EmailJS IDs ---
+      emailjsLib.sendForm(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        e.target
       )
       .then((response) => {
         setIsSubmitting(false);

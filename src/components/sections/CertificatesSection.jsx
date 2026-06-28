@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Award, Calendar, CheckCircle, ExternalLink, X, Eye } from 'lucide-react';
 import './CertificatesSection.css';
 
@@ -93,68 +94,248 @@ export default function CertificatesSection() {
 
   const certificates = [
     {
-      id: "cert-iot",
-      title: "Introduction to IoT & Embedded Systems",
-      issuer: "Coursera / UC Irvine",
-      date: "September 2025",
-      category: "IoT",
-      credId: "UC-IOT-9481A",
-      verifyLink: "https://coursera.org/verify",
+      id: "cert-iot-winner",
+      title: "IoT Exhibition & Competition Winner",
+      issuer: "NCIT / CITC Tech Fest",
+      date: "August 2024",
+      category: "Achievements",
+      credId: "NCIT-IOT-2024",
+      verifyLink: "https://ncit.edu.np",
       accentColor: "#00d4ff",
-      imgName: "iot.jpg",
-      desc: "Comprehensive coursework on embedded firmware design, sensor-hardware integration, protocol stacks (MQTT, HTTP), and serial interfaces."
+      imgName: "iot_winner.jpg",
+      desc: "Awarded first place for demonstrating a working IoT prototype integrating microcontrollers, cloud data logs, and real-time sensor dashboards."
     },
     {
-      id: "cert-gcp",
-      title: "Associate Cloud Engineer",
-      issuer: "Google Cloud",
-      date: "December 2025",
-      category: "Cloud",
-      credId: "GCP-ACE-7721X",
-      verifyLink: "https://google.com/cloud",
-      accentColor: "#7c3aed",
-      imgName: "gcp.jpg",
-      desc: "Rigorous certification covering virtual machine provision configurations, Kubernetes clusters, IAM access controls, and database operations."
-    },
-    {
-      id: "cert-aws",
-      title: "Solutions Architect - Associate",
+      id: "cert-aws-fundamentals",
+      title: "AWS Cloud Practitioner Essentials",
       issuer: "Amazon Web Services",
-      date: "February 2026",
-      category: "Cloud",
-      credId: "AWS-SAA-8822B",
+      date: "November 2025",
+      category: "Technical",
+      credId: "AWS-CPE-9982L",
       verifyLink: "https://aws.amazon.com",
-      accentColor: "#00d4ff",
-      imgName: "aws.jpg",
-      desc: "Validation of expertise in designing highly available, cost-efficient, fault-tolerant, and scalable AWS cloud infrastructure architectures."
+      accentColor: "#7c3aed",
+      imgName: "aws_fundamentals.jpg",
+      desc: "Validates foundational knowledge of cloud concepts, security, core services, and architectural designs on AWS."
     },
     {
-      id: "cert-fs",
-      title: "Meta Full-Stack Developer",
+      id: "cert-prompt-engineering",
+      title: "Generative AI & Prompt Engineering",
+      issuer: "Vanderbilt University / Coursera",
+      date: "July 2025",
+      category: "Technical",
+      credId: "COURSERA-PE-88421",
+      verifyLink: "https://coursera.org/verify",
+      accentColor: "#00d4ff",
+      imgName: "Prompt_engineering.png",
+      desc: "Covers techniques for crafting high-quality prompts, context windows, few-shot prompting, and integrating large language models into software workflows."
+    },
+    {
+      id: "cert-django",
+      title: "Django Web Development Specialist",
       issuer: "Meta / Coursera",
-      date: "October 2025",
-      category: "Software",
-      credId: "META-FS-2098D",
+      date: "September 2025",
+      category: "Technical",
+      credId: "META-DJ-77361",
       verifyLink: "https://coursera.org/verify",
       accentColor: "#7c3aed",
-      imgName: "meta.jpg",
-      desc: "A 9-course professional specialization program focusing on React development, Django server APIs, database queries, and deployment architectures."
+      imgName: "django.jpg",
+      desc: "Deep dive into model-view-template architecture, database migrations, authentication systems, and API endpoints with Python Django."
     },
     {
-      id: "cert-mongo",
-      title: "Developer Associate",
-      issuer: "MongoDB University",
-      date: "January 2026",
-      category: "Databases",
-      credId: "MONGO-DEV-5541L",
-      verifyLink: "https://mongodb.com",
+      id: "cert-mern-bootcamp",
+      title: "Full Stack Web Development (MERN)",
+      issuer: "MERN Dev Bootcamp",
+      date: "December 2025",
+      category: "Technical",
+      credId: "MERN-BC-1102A",
+      verifyLink: "https://github.com/Niraj-Bhatta",
       accentColor: "#00d4ff",
-      imgName: "mongodb.jpg",
-      desc: "Validation of expertise in schema mapping configurations, indexing algorithms, aggregation pipeline designs, and data modeling best practices."
+      imgName: "mern_bootcamp.jpg",
+      desc: "Comprehensive certification in frontend & backend engineering using MongoDB, Express.js, React, and Node.js for scalable web applications."
+    },
+    {
+      id: "cert-ieee-cs",
+      title: "IEEE Computer Society Membership",
+      issuer: "IEEE Computer Society",
+      date: "January 2025",
+      category: "Community & Leadership",
+      credId: "IEEE-CS-8899",
+      verifyLink: "https://www.computer.org",
+      accentColor: "#7c3aed",
+      imgName: "computerSociety_ieee.png",
+      desc: "Official certificate of membership, recognizing engagement with the world's leading organization for computer science professionals."
+    },
+    {
+      id: "cert-ieee",
+      title: "IEEE Member Certificate",
+      issuer: "IEEE (Institute of Electrical and Electronics Engineers)",
+      date: "January 2025",
+      category: "Community & Leadership",
+      credId: "IEEE-MEM-10492",
+      verifyLink: "https://www.ieee.org",
+      accentColor: "#00d4ff",
+      imgName: "ieee.png",
+      desc: "Acknowledges professional membership in IEEE, supporting technical innovation, global collaboration, and engineering excellence."
+    },
+    {
+      id: "cert-hardware-ncit",
+      title: "Computer Hardware & Microcontroller Training",
+      issuer: "NCIT Student Chapter",
+      date: "April 2024",
+      category: "Technical",
+      credId: "NCIT-HW-5542",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#7c3aed",
+      imgName: "hardware_ncit.jpg",
+      desc: "Practical training on circuit debugging, logic gates, breadboard prototyping, and basic microcontroller programming using C."
+    },
+    {
+      id: "cert-hardware-fellowship",
+      title: "NCIT Hardware Fellowship Program",
+      issuer: "NCIT Robotics Club",
+      date: "June 2024",
+      category: "Technical",
+      credId: "NCIT-HF-0092",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#00d4ff",
+      imgName: "harsware_fellowship.jpg",
+      desc: "An intensive fellowship focusing on advanced digital systems, electronic layout designs, and embedded firmware architectures."
+    },
+    {
+      id: "cert-orbit-1",
+      title: "Orbit 1.0 National Hackathon",
+      issuer: "Orbit Committee",
+      date: "May 2024",
+      category: "Hackathons & Events",
+      credId: "ORB1-PART-38",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#7c3aed",
+      imgName: "orbit_1.0.jpg",
+      desc: "Recognizes participation and software development during the intensive 36-hour Orbit 1.0 hackathon, building community-driven solutions."
+    },
+    {
+      id: "cert-orbit-2",
+      title: "Orbit 2.0 Technology Championship",
+      issuer: "Orbit Tech Fest",
+      date: "February 2025",
+      category: "Hackathons & Events",
+      credId: "ORB2-PART-99",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#00d4ff",
+      imgName: "orbit2.0.jpg",
+      desc: "Awarded for participating in the technical track of Orbit 2.0, showcasing innovative applications and collaborative engineering."
+    },
+    {
+      id: "cert-revah-code",
+      title: "Revah Code Sprint & Hackathon",
+      issuer: "Revah Team",
+      date: "October 2024",
+      category: "Hackathons & Events",
+      credId: "REV-CS-9912",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#7c3aed",
+      imgName: "revah_code.jpg",
+      desc: "Completed a high-pressure programming contest focused on competitive algorithms, speed coding, and full-stack prototyping."
+    },
+    {
+      id: "cert-tech-fest",
+      title: "National Tech Festival Participant",
+      issuer: "CITC Association",
+      date: "November 2024",
+      category: "Hackathons & Events",
+      credId: "TF-CITC-2024",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#00d4ff",
+      imgName: "tech_fest.jpg",
+      desc: "Recognized for presenting software systems and engaging in multi-disciplinary engineering exhibitions and presentations."
+    },
+    {
+      id: "cert-tedxncit",
+      title: "TEDxNCIT Organizing Committee",
+      issuer: "TEDxNCIT",
+      date: "March 2025",
+      category: "Community & Leadership",
+      credId: "TEDX-ORG-554",
+      verifyLink: "https://ted.com",
+      accentColor: "#7c3aed",
+      imgName: "tedxncit.jpg",
+      desc: "Recognizes dedication as an organizer and volunteer, managing logistics, audience engagement, and audio-visual setups for TEDx talks."
+    },
+    {
+      id: "cert-tedx-participate",
+      title: "TEDxNCIT Attendee & Participant",
+      issuer: "TEDxNCIT",
+      date: "March 2025",
+      category: "Community & Leadership",
+      credId: "TEDX-PART-119",
+      verifyLink: "https://ted.com",
+      accentColor: "#00d4ff",
+      imgName: "tedx_participate.jpg",
+      desc: "Active participant in TEDxNCIT event dialogues, exchanging ideas on social impact, technology, and design."
+    },
+    {
+      id: "cert-leo-certifi",
+      title: "Leo Club Outstanding Service & Leadership",
+      issuer: "Leo Club International / District 325",
+      date: "July 2024",
+      category: "Community & Leadership",
+      credId: "LEO-SER-883",
+      verifyLink: "https://lionsclubs.org",
+      accentColor: "#7c3aed",
+      imgName: "leo_certifi.png",
+      desc: "Awarded for exceptional service to the community, organizing blood donation drives, and demonstrating strong leadership."
+    },
+    {
+      id: "cert-leo-id",
+      title: "Official Leo Club Membership Credentials",
+      issuer: "Leo Club of NCIT",
+      date: "June 2023",
+      category: "Community & Leadership",
+      credId: "LEO-ID-8831",
+      verifyLink: "https://lionsclubs.org",
+      accentColor: "#00d4ff",
+      imgName: "leo_id.png",
+      desc: "Officially certifies active membership status and professional standing within the global Leo Club organization."
+    },
+    {
+      id: "cert-yfc",
+      title: "Youth Fellowship Certificate",
+      issuer: "Youth Fellowship Club",
+      date: "December 2024",
+      category: "Community & Leadership",
+      credId: "YFC-MEM-445",
+      verifyLink: "https://yfc.org",
+      accentColor: "#7c3aed",
+      imgName: "yfc.jpg",
+      desc: "Recognizes dedication to mentoring youth, community engagement, and promoting mental health and leadership workshops."
+    },
+    {
+      id: "cert-photocomp",
+      title: "CITC Visual Storytelling & Photography",
+      issuer: "CITC Media Wing",
+      date: "October 2024",
+      category: "Achievements",
+      credId: "CITC-PHOTO-09",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#00d4ff",
+      imgName: "photocomp_citc.jpg",
+      desc: "Recognized for creative excellence and visual composition in capturing technology and human interaction themes."
+    },
+    {
+      id: "cert-engineer-cv",
+      title: "Computer Engineering Coursework Excellence",
+      issuer: "NCIT / Pokhara University",
+      date: "October 2025",
+      category: "Achievements",
+      credId: "NCIT-ECE-CV",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#7c3aed",
+      imgName: "Engineer_cv.png",
+      desc: "A certificate verifying stellar performance in advanced academic courses, labs, and engineering design projects."
     }
   ];
 
-  const categories = ['All', 'IoT', 'Cloud', 'Software', 'Databases'];
+  const categories = ['All', 'Technical', 'Hackathons & Events', 'Community & Leadership', 'Achievements'];
 
   const filteredCerts = activeFilter === 'All'
     ? certificates
@@ -238,7 +419,7 @@ export default function CertificatesSection() {
       </div>
 
       {/* Certificate Lightbox Modal */}
-      {selectedCert && (
+      {selectedCert && createPortal(
         <div className="lightbox-overlay" onClick={() => setSelectedCert(null)}>
           <div className="lightbox-content glass-panel" onClick={(e) => e.stopPropagation()}>
             <button className="lightbox-close" onClick={() => setSelectedCert(null)}>
@@ -246,15 +427,25 @@ export default function CertificatesSection() {
             </button>
 
             <div className="lightbox-body">
-              {/* Left: Certificate Visual Vector */}
+              {/* Left: Certificate Visual or Vector */}
               <div className="lightbox-visual">
-                <CertificateVector 
-                  title={selectedCert.title} 
-                  issuer={selectedCert.issuer} 
-                  date={selectedCert.date} 
-                  credId={selectedCert.credId} 
-                  accentColor={selectedCert.accentColor} 
-                />
+                {imageErrors[selectedCert.id] ? (
+                  <CertificateVector 
+                    title={selectedCert.title} 
+                    issuer={selectedCert.issuer} 
+                    date={selectedCert.date} 
+                    credId={selectedCert.credId} 
+                    accentColor={selectedCert.accentColor} 
+                  />
+                ) : (
+                  <img
+                    src={`/assets/certificates/${selectedCert.imgName}`}
+                    alt={selectedCert.title}
+                    className="lightbox-img"
+                    style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '8px', objectFit: 'contain' }}
+                    onError={() => handleImageError(selectedCert.id)}
+                  />
+                )}
               </div>
 
               {/* Right: Text Details */}
@@ -296,7 +487,8 @@ export default function CertificatesSection() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

@@ -175,7 +175,7 @@
 /* Mobile Drawer (Slide down) */
 .mobile-drawer {
   position: fixed;
-  top: -120%; /* Hidden above header */
+  top: var(--nav-height); /* Positioned below navbar */
   left: 0;
   width: 100%;
   height: auto;
@@ -185,15 +185,16 @@
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--card-border);
   z-index: 999;
-  transition: top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: translateY(-155%); /* Hidden by sliding up */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   padding: 30px 24px;
-  display: flex;
+  display: none; /* Hidden on desktop */
   flex-direction: column;
   overflow-y: auto;
 }
 
 .mobile-drawer.open {
-  top: var(--nav-height); /* Slides down right below header */
+  transform: translateY(0); /* Slide down */
 }
 
 .mobile-links {
@@ -232,5 +233,8 @@
   }
   .mobile-toggle {
     display: block;
+  }
+  .mobile-drawer {
+    display: flex; /* Visible only on mobile/tablet */
   }
 }

@@ -80,14 +80,6 @@ export default function Navbar() {
             </a>
           ))}
           <a 
-            href="./assets/resume/resume.pdf" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-resume nav-cta"
-          >
-            View Resume
-          </a>
-          <a 
             href="#contact" 
             className="btn btn-primary nav-cta"
             onClick={(e) => handleLinkClick(e, '#contact')}
@@ -119,14 +111,6 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <a 
-            href="./assets/resume/resume.pdf" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-resume mobile-cta"
-          >
-            View Resume
-          </a>
           <a 
             href="#contact" 
             className="btn btn-primary mobile-cta"
