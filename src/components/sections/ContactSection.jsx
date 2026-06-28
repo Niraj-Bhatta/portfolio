@@ -13,7 +13,7 @@ function WorldMapDotGrid() {
           <stop offset="100%" stopColor="#00d4ff" stopOpacity="0" />
         </radialGradient>
       </defs>
-      
+
       <rect width="1000" height="480" fill="none" />
 
       {/* North America */}
@@ -22,7 +22,7 @@ function WorldMapDotGrid() {
       <circle cx="210" cy="110" r="2" fill="rgba(255,255,255,0.15)" />
       <circle cx="230" cy="150" r="2" fill="rgba(255,255,255,0.15)" />
       <circle cx="200" cy="160" r="2" fill="rgba(255,255,255,0.15)" />
-      
+
       {/* South America */}
       <circle cx="280" cy="280" r="2" fill="rgba(255,255,255,0.15)" />
       <circle cx="310" cy="320" r="2" fill="rgba(255,255,255,0.15)" />
@@ -49,7 +49,7 @@ function WorldMapDotGrid() {
       <circle cx="660" cy="160" r="2" fill="rgba(255,255,255,0.15)" />
       <circle cx="700" cy="180" r="2" fill="rgba(255,255,255,0.15)" />
       <circle cx="740" cy="200" r="2" fill="rgba(255,255,255,0.15)" />
-      
+
       {/* Australia */}
       <circle cx="840" cy="330" r="2" fill="rgba(255,255,255,0.15)" />
       <circle cx="870" cy="350" r="2" fill="rgba(255,255,255,0.15)" />
@@ -176,30 +176,30 @@ export default function ContactSection() {
 
       // Initialize EmailJS with a Public Key placeholder
       // --- REPLACE "YOUR_PUBLIC_KEY" with your actual EmailJS Public Key ---
-      emailjsLib.init("YOUR_PUBLIC_KEY");
+      emailjsLib.init("XFjDLQJnQ7DW9MxOf");
 
       // On form submit, send form data using sendForm
       // --- REPLACE "YOUR_SERVICE_ID" and "YOUR_TEMPLATE_ID" with your actual EmailJS IDs ---
       emailjsLib.sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
+        "service_1jxj0nu",
+        "template_j77djos",
         e.target
       )
-      .then((response) => {
-        setIsSubmitting(false);
-        setSubmitSuccess(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        showToast("Message sent successfully! Thank you.", "success");
-        
-        // Dismiss success state after 6 seconds
-        setTimeout(() => setSubmitSuccess(false), 6000);
-      })
-      .catch((err) => {
-        setIsSubmitting(false);
-        const errMsg = err?.text || err?.message || 'Failed to send message via EmailJS.';
-        setSubmitError(errMsg);
-        showToast(`Error: ${errMsg}`, "error");
-      });
+        .then((response) => {
+          setIsSubmitting(false);
+          setSubmitSuccess(true);
+          setFormData({ name: '', email: '', subject: '', message: '' });
+          showToast("Message sent successfully! Thank you.", "success");
+
+          // Dismiss success state after 6 seconds
+          setTimeout(() => setSubmitSuccess(false), 6000);
+        })
+        .catch((err) => {
+          setIsSubmitting(false);
+          const errMsg = err?.text || err?.message || 'Failed to send message via EmailJS.';
+          setSubmitError(errMsg);
+          showToast(`Error: ${errMsg}`, "error");
+        });
     } catch (err) {
       setIsSubmitting(false);
       const errMsg = err?.message || 'A critical error occurred while submitting the form.';
@@ -209,9 +209,9 @@ export default function ContactSection() {
   };
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="contact" 
+      id="contact"
       className={`section-container contact-section scroll-reveal ${isVisible ? 'visible' : ''}`}
     >
       <div className="glow-bg contact-glow" style={{ bottom: '15%', left: '10%', width: '380px', height: '380px', backgroundColor: 'var(--accent-purple)' }} />
@@ -225,8 +225,8 @@ export default function ContactSection() {
             {toast.type === 'success' ? <CheckCircle size={18} /> : <AlertTriangle size={18} />}
           </div>
           <span className="toast-message">{toast.message}</span>
-          <button 
-            className="toast-close" 
+          <button
+            className="toast-close"
             onClick={() => setToast({ show: false, message: '', type: '' })}
             aria-label="Close notification"
           >
@@ -269,7 +269,7 @@ export default function ContactSection() {
               <MapPin className="info-icon" />
               <div className="info-details">
                 <span className="label">Location</span>
-                <span className="val">Lalitpur, Nepal</span>
+                <span className="val">Lolang,Kathmandu,Nepal</span>
               </div>
             </div>
           </div>
@@ -358,8 +358,8 @@ export default function ContactSection() {
                 </div>
               )}
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="btn btn-primary submit-btn"
                 disabled={isSubmitting}
                 style={{ minHeight: '44px' }} /* Enforce min 44px touch target height */

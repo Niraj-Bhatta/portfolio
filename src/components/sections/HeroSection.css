@@ -13,8 +13,8 @@
   /* Animation constants and variable design system tokens */
   --translate-y-amount: 30px;
   --anim-duration: 1.2s;
-  --char-stagger: 0.25s;
-  --char-duration: 1.2s;
+  --char-stagger: 0.2s;
+  --char-duration: 0.15s;
   --char-translate-y: 20px;
   --char-scale: 0.9;
   --indicator-start-bottom: 40px;
@@ -118,13 +118,17 @@
 
 .gradient-text-blue {
   background: linear-gradient(135deg, #ffffff 40%, var(--accent-blue));
+  background-clip: text;
   -webkit-background-clip: text;
+  color: transparent;
   -webkit-text-fill-color: transparent;
 }
 
 .gradient-text-purple {
   background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  background-clip: text;
   -webkit-background-clip: text;
+  color: transparent;
   -webkit-text-fill-color: transparent;
 }
 

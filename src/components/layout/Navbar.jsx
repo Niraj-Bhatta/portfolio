@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Terminal } from 'lucide-react';
 import './Navbar.css';
+import myPhoto from '../../assets/hero-nav.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,32 +56,32 @@ export default function Navbar() {
   return (
     <nav className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
       {/* Scroll Progress Bar */}
-      <div 
-        className="scroll-progress-bar" 
+      <div
+        className="scroll-progress-bar"
         style={{ width: `${scrollProgress}%` }}
       />
-      
+
       <div className="navbar-content">
         {/* Logo */}
         <a href="#hero" className="navbar-logo" onClick={(e) => handleLinkClick(e, '#hero')}>
-          <div className="logo-badge">NB</div>
+          <div className="logo-badge"><img src={myPhoto} alt="NB" className="logo-badge" /></div>
           <span className="logo-text">Niraj<span className="dot">.Bhatta</span></span>
         </a>
 
         {/* Desktop Links */}
         <div className="navbar-links">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
+            <a
+              key={link.name}
+              href={link.href}
               className="nav-link"
               onClick={(e) => handleLinkClick(e, link.href)}
             >
               {link.name}
             </a>
           ))}
-          <a 
-            href="#contact" 
+          <a
+            href="#contact"
             className="btn btn-primary nav-cta"
             onClick={(e) => handleLinkClick(e, '#contact')}
           >
@@ -89,8 +90,8 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Hamburger */}
-        <button 
-          className="mobile-toggle" 
+        <button
+          className="mobile-toggle"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle navigation menu"
         >
@@ -102,17 +103,17 @@ export default function Navbar() {
       <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
         <div className="mobile-links">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
+            <a
+              key={link.name}
+              href={link.href}
               className="mobile-link"
               onClick={(e) => handleLinkClick(e, link.href)}
             >
               {link.name}
             </a>
           ))}
-          <a 
-            href="#contact" 
+          <a
+            href="#contact"
             className="btn btn-primary mobile-cta"
             onClick={(e) => handleLinkClick(e, '#contact')}
           >
