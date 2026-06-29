@@ -28,13 +28,13 @@ export default function Footer() {
           <a href="https://www.linkedin.com/in/nirajbhatta559/" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="LinkedIn">
             <Linkedin size={18} />
           </a>
-          <a href="https://instagram.com/your_instagram" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Instagram">
+          <a href="https://instagram.com/niraj_bhatta_4" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Instagram">
             <Instagram size={18} />
           </a>
-          <a href="https://facebook.com/your_facebook" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Facebook">
+          <a href="https://facebook.com/niraj.bhatta.1420" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Facebook">
             <Facebook size={18} />
           </a>
-          <a href="https://youtube.com/your_youtube" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="YouTube">
+          <a href="https://youtube.com/@educationifyy" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="YouTube">
             <Youtube size={18} />
           </a>
           <a href="mailto:bhattaniraj559@gmail.com" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Email">
@@ -49,7 +49,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} @niraj. All Rights Reserved. Crafted for Innovation.</p>
+        <p>&copy; {new Date().getFullYear()} @niraj_bhatta. All Rights Reserved. Crafted for Innovation.</p>
       </div>
     </footer>
   );

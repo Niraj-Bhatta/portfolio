@@ -84,10 +84,10 @@ export default function ExperienceSection() {
   const roadmapItems = [
     {
       role: "Full Stack Developer Intern",
-      company: "TechSolutions Co.",
+      company: "Educationify pvt. ltd.",
       location: "Kathmandu, NP",
       desc: "Spearheaded frontend dashboard implementations using React and Redux, improving state consistency. Built RESTful API endpoints in Node.js and conducted optimization audits on PostgreSQL indexing structures.",
-      date: "Nov 2025 - Present",
+      date: "Nov 2025 - Feb 2026",
       type: "Internship",
       typeIcon: <Briefcase size={12} />,
       color: "var(--accent-blue)"
@@ -114,7 +114,7 @@ export default function ExperienceSection() {
     },
     {
       role: "Computer Engineering Student",
-      company: "National College of Information Technology (NCIT)",
+      company: "Nepal College of Information Technology (NCIT)",
       location: "Lalitpur, NP",
       desc: "Rigorous coursework focusing on software development structures, data communications, database queries, logic design, and digital microchips. Maintaining top academic evaluations.",
       date: "2023 - Present",

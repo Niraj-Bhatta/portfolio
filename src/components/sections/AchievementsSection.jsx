@@ -29,23 +29,23 @@ export default function AchievementsSection() {
     {
       title: "IEEE Program Coordinator",
       organization: "IEEE Student Branch",
-      date: "2025 - Present",
+      date: "2026 - Present",
       description: "Led and organized technical workshops, coding bootcamps, and networking panels. Collaborated with professional engineers to deliver educational content to 200+ active student members.",
       icon: <Star size={20} />,
       color: "var(--accent-blue)"
     },
     {
       title: "IoT Competition Winner",
-      organization: "National Engineering Meet",
-      date: "September 2025",
-      description: "Secured 1st Place out of 35 teams for constructing an autonomous environmental sensor mesh. Built on ESP32 microcontrollers communicating via LoRa protocols to stream real-time soil logs.",
+      organization: "NCIT College",
+      date: "Febrary 2026",
+      description: "Secured 1st Place out of 22 teams for constructing Smart Parking System. Built on ESP32 microcontrollers communicating via MQTT protocols to stream real-time availability.",
       icon: <Trophy size={20} />,
       color: "var(--accent-purple)"
     },
     {
       title: "NCIT TechFest Organizer",
       organization: "NCIT Technical Committee",
-      date: "May 2025",
+      date: "June 2026",
       description: "Co-managed operations, scheduling, and judge panels for the annual college tech festival hosting 1000+ attendees. Handled venue coordination, budget allocation, and technical hardware tracks.",
       icon: <Award size={20} />,
       color: "var(--accent-blue)"
@@ -60,7 +60,7 @@ export default function AchievementsSection() {
     },
     {
       title: "Technical Events Leadership",
-      organization: "College Innovation Lab",
+      organization: "NCIT College Computer Club (CITC)",
       date: "2024 - Present",
       description: "Mentored first-year engineering students in circuit designing, basic C++ firmware scripting, and git version tracking. Promoted peer learning and collaboration cultures.",
       icon: <Star size={20} />,
@@ -69,7 +69,7 @@ export default function AchievementsSection() {
     {
       title: "NCIT Football Winner",
       organization: "Inter-College Sports League",
-      date: "November 2024",
+      date: "May 2026",
       description: "Led the engineering team to victory in the inter-departmental soccer championships. Emphasized endurance, speed, communication, strategizing under pressure, and trust dynamics.",
       icon: <Heart size={20} />,
       color: "var(--accent-purple)"
