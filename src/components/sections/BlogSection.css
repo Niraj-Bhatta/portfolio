@@ -155,7 +155,8 @@
 }
 
 .blog-card-image {
-  height: 180px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   position: relative;
 }
 
@@ -284,7 +285,8 @@
     height: 480px;
   }
   .featured-image {
-    height: 200px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
   }
   .featured-info {
     padding: 24px;

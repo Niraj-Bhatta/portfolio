@@ -5,6 +5,10 @@ export default function CanvasContainer() {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    // Disable heavy 3D animations/particles on mobile viewports for performance
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile) return;
+
     if (!containerRef.current) return;
 
     // Track mouse coordinates

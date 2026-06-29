@@ -32,7 +32,7 @@ export default function ProjectsSection() {
       description: "An automated real-time IoT solution using ESP32, IR sensors, and ultrasonic modules to detect stall occupancy. Synchronizes data with Firebase Realtime Database for live web app parking status and reservation mapping.",
       tags: ["ESP32", "Firebase", "C++ / Arduino", "React"],
       liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
+      gitLink: "https://github.com/Niraj-Bhatta/minor_pjt",
       imgName: "parking.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Cpu className="preview-icon glow-blue" size={48} />
@@ -56,7 +56,7 @@ export default function ProjectsSection() {
       description: "A database-centric administration platform featuring automated student registry tracking, grading schemas, analytical reports, roles/permissions levels, and academic charting panels.",
       tags: ["React", "Express", "PostgreSQL", "Tailwind"],
       liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
+      gitLink: "https://github.com/Niraj-Bhatta/student_info_sys",
       imgName: "student.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <User className="preview-icon glow-blue" size={48} />
@@ -67,9 +67,21 @@ export default function ProjectsSection() {
       filterCategory: "Web",
       description: "An interactive educational environment providing online courses, visual lesson maps, peer discussion forums, testing portals, and instructor course construction suites.",
       tags: ["MERN Stack", "Firebase", "Socket.io", "Vite"],
-      liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
-      imgName: "deltaversity.jpg",
+      liveLink: "https://deltaversity.vercel.app",
+      gitLink: "https://github.com/Niraj-Bhatta/deltaversity",
+      imgName: "deltaversity.png",
+      glowColor: "124, 58, 237", // Purple
+      previewIcon: <Globe className="preview-icon glow-purple" size={48} />
+    },
+    {
+      id: "banking",
+      title: "Banking System",
+      filterCategory: "Web",
+      description: "A modern banking application that allows users to perform various banking operations like deposits, withdrawals, and transfers.",
+      tags: ["Django", "HTML", "CSS", "SQLite"],
+      liveLink: "https://eg",
+      gitLink: "https://github.com/Niraj-Bhatta/Banking_System",
+      imgName: "banking.jpg",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Globe className="preview-icon glow-purple" size={48} />
     },
@@ -80,7 +92,7 @@ export default function ProjectsSection() {
       description: "A high-performance calculator app featuring clean layouts, historical calculation memories, modular equations parsing, scientific operational triggers, and visual grid transitions.",
       tags: ["HTML5", "CSS3 Modules", "Vanilla JS"],
       liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
+      gitLink: "https://github.com/Niraj-Bhatta/Calculator",
       imgName: "calculator.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Calculator className="preview-icon glow-blue" size={48} />
@@ -92,8 +104,8 @@ export default function ProjectsSection() {
       description: "A comprehensive media publication engine fetching international stories, incorporating customized categorization panels, reader review threads, bookmarks collection, and article caching layers.",
       tags: ["React", "Node.js", "MongoDB", "NewsAPI"],
       liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
-      imgName: "news.jpg",
+      gitLink: "https://github.com/Niraj-Bhatta/react-project/tree/main/my-project/newsapp",
+      imgName: "news.png",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Newspaper className="preview-icon glow-purple" size={48} />
     },
@@ -146,13 +158,13 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      id="projects" 
+    <section
+      ref={sectionRef}
+      id="projects"
       className={`section-container projects-section scroll-reveal ${isVisible ? 'visible' : ''}`}
     >
       <div className="glow-bg projects-glow" style={{ top: '30%', left: '5%', width: '380px', height: '380px', backgroundColor: 'var(--accent-blue)' }} />
-      
+
       <h2 className="section-title">Projects</h2>
 
       {/* Categories Filter Panel */}
@@ -193,6 +205,9 @@ export default function ProjectsSection() {
                   src={`/assets/projects/${project.imgName}`}
                   alt={project.title}
                   className="project-cover-image"
+                  loading="lazy"
+                  width="380"
+                  height="214"
                   onError={() => handleImageError(project.id)}
                 />
               )}
@@ -201,13 +216,15 @@ export default function ProjectsSection() {
             {/* Project Details */}
             <div className="project-details">
               <h3 className="project-title">{project.title}</h3>
-              <p className="project-desc">{project.description}</p>
-              
+
               <div className="project-tags">
                 {project.tags.map((tag) => (
                   <span key={tag} className="tag-badge">{tag}</span>
                 ))}
               </div>
+
+              <p className="project-desc">{project.description}</p>
+
 
               {/* Actions */}
               <div className="project-actions">

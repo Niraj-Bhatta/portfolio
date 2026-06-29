@@ -84,22 +84,41 @@
   color: var(--accent-blue);
 }
 
-/* Map Wrapper */
 .map-wrapper {
   width: 100%;
-  aspect-ratio: 2.1;
+  height: 400px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   border: 1px solid var(--card-border);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
 }
 
-.world-map-svg {
-  filter: drop-shadow(0 0 10px rgba(var(--accent-blue-rgb), 0.1));
+@media (max-width: 768px) {
+  .map-wrapper {
+    height: 300px;
+  }
+}
+
+.map-fallback-container {
+  margin-top: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.map-fallback-link {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-bottom: 1.5px solid transparent;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+}
+
+.map-fallback-link:hover {
+  color: var(--accent-purple);
+  border-bottom-color: var(--accent-purple);
 }
 
 /* Contact Form Panel */

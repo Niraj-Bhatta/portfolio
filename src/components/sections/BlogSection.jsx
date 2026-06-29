@@ -35,6 +35,7 @@ export default function BlogSection() {
       readTime: "7 min read",
       category: "IoT",
       imageClass: "blog-img-embedded",
+      imgName: "embedded-cpp.jpg",
       featured: true
     },
     {
@@ -45,6 +46,7 @@ export default function BlogSection() {
       readTime: "5 min read",
       category: "Architecture",
       imageClass: "blog-img-api",
+      imgName: "api-websocket.jpg",
       featured: false
     },
     {
@@ -55,6 +57,7 @@ export default function BlogSection() {
       readTime: "4 min read",
       category: "Cloud",
       imageClass: "blog-img-security",
+      imgName: "firebase-rules.jpg",
       featured: false
     },
     {
@@ -65,6 +68,7 @@ export default function BlogSection() {
       readTime: "8 min read",
       category: "Programming",
       imageClass: "blog-img-pointers",
+      imgName: "pointers.jpg",
       featured: false
     },
     {
@@ -75,6 +79,7 @@ export default function BlogSection() {
       readTime: "6 min read",
       category: "IoT",
       imageClass: "blog-img-edge",
+      imgName: "edge-analytics.jpg",
       featured: false
     },
     {
@@ -85,6 +90,7 @@ export default function BlogSection() {
       readTime: "4 min read",
       category: "Frontend",
       imageClass: "blog-img-css",
+      imgName: "vanilla-css.jpg",
       featured: false
     }
   ];
@@ -155,6 +161,15 @@ export default function BlogSection() {
       {featuredPost && activeCategory === 'All' && !searchQuery && (
         <div className="featured-post-card glass-panel">
           <div className={`featured-image ${featuredPost.imageClass}`}>
+            <img 
+              src={`/assets/blogs/${featuredPost.imgName}`} 
+              alt={featuredPost.title}
+              loading="lazy"
+              width="720"
+              height="380"
+              className="blog-cover-image"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
             <div className="category-pill">{featuredPost.category}</div>
           </div>
           <div className="featured-info">
@@ -178,6 +193,15 @@ export default function BlogSection() {
           .map((post) => (
             <div key={post.id} className="blog-card glass-panel">
               <div className={`blog-card-image ${post.imageClass}`}>
+                <img 
+                  src={`/assets/blogs/${post.imgName}`} 
+                  alt={post.title}
+                  loading="lazy"
+                  width="380"
+                  height="180"
+                  className="blog-cover-image"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
                 <div className="category-pill">{post.category}</div>
               </div>
               
@@ -197,6 +221,7 @@ export default function BlogSection() {
             </div>
           ))}
       </div>
+
 
       {/* Empty State */}
       {filteredPosts.length === 0 && (

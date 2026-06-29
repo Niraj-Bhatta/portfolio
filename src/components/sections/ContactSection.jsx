@@ -275,9 +275,28 @@ export default function ContactSection() {
           </div>
 
           <div className="map-wrapper">
-            <WorldMapDotGrid />
+            <iframe
+              title="Location Map"
+              src="https://maps.google.com/maps?q=Lolang,%20Kathmandu,%20Nepal&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="400px"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div className="map-fallback-container">
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Lolang,Kathmandu,Nepal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="map-fallback-link"
+            >
+              Open in Google Maps
+            </a>
           </div>
         </div>
+
 
         {/* Right: Contact Form */}
         <div className="contact-form-panel glass-panel">

@@ -100,7 +100,8 @@
 
 /* Cover Image Wrapper */
 .project-image-wrapper {
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--card-border);

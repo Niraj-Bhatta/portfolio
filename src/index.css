@@ -254,3 +254,13 @@ body {
 a, button, select, input, textarea, .btn, .nav-link, .project-card, .cert-card, .social-icon-btn, .social-btn, .mobile-toggle {
   transition: all 0.3s ease;
 }
+
+/* Optimize initial render cost with content-visibility for sections below the fold */
+#achievements,
+#blog,
+#projects,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
+}
+

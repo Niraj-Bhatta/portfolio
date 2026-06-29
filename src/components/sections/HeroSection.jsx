@@ -1,41 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon } from "../ui/SocialIcons";
 import "./HeroSection.css";
-import heroVideo from "../../assets/niraj-video.mp4";
-import profilePhoto from "../../assets/hero.png";
-
-// Static arrays defined outside the component to avoid layout allocations on render
-const FIRST_NAME_CHARS = "NIRAJ".split("");
-const LAST_NAME_CHARS = "BHATTA".split("");
+import heroVideoMp4 from "../../assets/niraj-video-compressed.mp4";
+import heroVideoWebm from "../../assets/niraj-video-compressed.webm";
+import heroPoster from "../../assets/hero-poster.jpg";
 
 // Memoized Cinematic Name Animation Overlay
-const IntroOverlay = React.memo(({ step }) => {
+const IntroOverlay = React.memo(({ step, firstNameRef, lastNameRef, activeRow }) => {
   if (step === "done") return null;
 
   return (
     <div className={`intro-name-overlay ${step}`}>
       <div className="intro-name-background">
         <div className="intro-name-row">
-          {FIRST_NAME_CHARS.map((char, index) => (
-            <span
-              key={index}
-              className="char"
-              style={{ "--char-index": index }}
-            >
-              {char}
-            </span>
-          ))}
+          <span ref={firstNameRef} className="char-name-line"></span>
+          {activeRow === "first" && <span className="cursor-blink">|</span>}
         </div>
         <div className="intro-name-row">
-          {LAST_NAME_CHARS.map((char, index) => (
-            <span
-              key={index + 5}
-              className="char"
-              style={{ "--char-index": index + 5 }}
-            >
-              {char}
-            </span>
-          ))}
+          <span ref={lastNameRef} className="char-name-line"></span>
+          {activeRow === "second" && <span className="cursor-blink">|</span>}
         </div>
       </div>
     </div>
@@ -155,111 +138,87 @@ HeroContent.displayName = "HeroContent";
 export default function HeroSection({ introState, setIntroState }) {
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
 
   const [introStep, setIntroStep] = useState("reveal"); // 'reveal' | 'fadeout' | 'done'
+  const [activeRow, setActiveRow] = useState("first"); // 'first' | 'second' | 'none'
   const [videoSrc, setVideoSrc] = useState(null);
 
-  // Initialize capability config synchronously on load to avoid layout thrashing and synchronous useEffect state updates
-  const [perfConfig, setPerfConfig] = useState(() => {
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const hasLowHardware = (
-      (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
-      (navigator.deviceMemory && navigator.deviceMemory < 4)
-    );
+  // Detect low-end hardware, slow networks or reduced-motion preferences
+  const [shouldSkipVideo] = useState(() => {
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const isSlowConnection = connection && (connection.saveData || /2g|slow-2g/.test(connection.effectiveType));
+    const isSlowConnection = connection && (connection.saveData || /2g|3g/.test(connection.effectiveType));
+    const isLowHardware = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (motionQuery.matches || isSlowConnection) {
-      return {
-        fps: 30,
-        isLowEnd: true,
-        reduceMotion: motionQuery.matches,
-      };
-    }
-    return {
-      fps: 60,
-      isLowEnd: hasLowHardware,
-      reduceMotion: false,
-    };
+    return !!(isSlowConnection || isLowHardware || motionQuery.matches);
   });
 
-  const [isVideoLoaded, setIsVideoLoaded] = useState(() => {
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const hasLowHardware = (
-      (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
-      (navigator.deviceMemory && navigator.deviceMemory < 4)
-    );
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const isSlowConnection = connection && (connection.saveData || /2g|slow-2g/.test(connection.effectiveType));
-    return motionQuery.matches || isSlowConnection || hasLowHardware;
-  });
-
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isHeroAnimating, setIsHeroAnimating] = useState(false);
 
-  // 1. Dynamic Frame-Rate Benchmarking (only if not already classified as low-end)
+  // 1. Pure JavaScript Typewriter Implementation
   useEffect(() => {
-    if (perfConfig.isLowEnd) return;
+    const firstName = "NIRAJ";
+    const lastName = "BHATTA";
 
-    // Dynamic frame-rate testing over 40 frames
-    let frameCount = 0;
-    let lastTime = performance.now();
-    const frameTimes = [];
-    let rafId;
-
-    const checkFrame = (time) => {
-      const delta = time - lastTime;
-      lastTime = time;
-
-      if (frameCount > 0) {
-        frameTimes.push(delta);
-      }
-
-      frameCount++;
-      if (frameCount < 40) {
-        rafId = requestAnimationFrame(checkFrame);
-      } else {
-        const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
-        const droppedFrames = frameTimes.filter((t) => t > 33.33).length;
-        const isLowPerformance = avgFrameTime > 22 || droppedFrames > 3;
-
-        if (isLowPerformance) {
-          setPerfConfig({
-            fps: 30,
-            isLowEnd: true,
-            reduceMotion: false,
-          });
-          setIsVideoLoaded(true);
+    const startTypewriter = () => {
+      const firstEl = firstNameRef.current;
+      const lastEl = lastNameRef.current;
+      if (firstEl) firstEl.textContent = "";
+      if (lastEl) lastEl.textContent = "";
+      
+      setActiveRow("first");
+      
+      let i = 0;
+      const typeFirst = () => {
+        if (i < firstName.length) {
+          if (firstNameRef.current) firstNameRef.current.textContent += firstName.charAt(i);
+          i++;
+          setTimeout(typeFirst, 90);
+        } else {
+          setActiveRow("second");
+          let j = 0;
+          const typeSecond = () => {
+            if (j < lastName.length) {
+              if (lastNameRef.current) lastNameRef.current.textContent += lastName.charAt(j);
+              j++;
+              setTimeout(typeSecond, 90);
+            } else {
+              setActiveRow("none");
+            }
+          };
+          setTimeout(typeSecond, 150); // Pause between first and last name
         }
-      }
+      };
+      setTimeout(typeFirst, 600); // Start delay
     };
 
-    rafId = requestAnimationFrame(checkFrame);
-
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handleMotionChange = (e) => {
-      setPerfConfig((prev) => ({ ...prev, reduceMotion: e.matches }));
-      if (e.matches) {
-        setIsVideoLoaded(true);
-      }
+    const handleLoad = () => {
+      startTypewriter();
     };
-    motionQuery.addEventListener("change", handleMotionChange);
+
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+    }
 
     return () => {
-      cancelAnimationFrame(rafId);
-      motionQuery.removeEventListener("change", handleMotionChange);
+      window.removeEventListener("load", handleLoad);
     };
-  }, [perfConfig.isLowEnd]);
+  }, []);
 
   // 2. Background Video Lazy Loader
   useEffect(() => {
-    // Only load the 6.9MB video file on non-low-end devices
-    if (!perfConfig.isLowEnd && !perfConfig.reduceMotion) {
+    if (!shouldSkipVideo) {
       const timer = setTimeout(() => {
-        setVideoSrc(heroVideo);
-      }, 150); // defer to let critical assets render first
+        setVideoSrc(true);
+      }, 150); // Defer to let critical assets render first
       return () => clearTimeout(timer);
     }
-  }, [perfConfig.isLowEnd, perfConfig.reduceMotion]);
+  }, [shouldSkipVideo]);
 
   // 3. Autoplay and Load Handler
   useEffect(() => {
@@ -367,28 +326,50 @@ export default function HeroSection({ introState, setIntroState }) {
     <section
       ref={sectionRef}
       id="hero"
-      className={`hero-container ${perfConfig.isLowEnd ? "perf-low" : ""}`}
+      className="hero-container"
     >
       {/* Cinematic Background Video / Poster Layer */}
-      <div className={`hero-video-wrapper ${isVideoLoaded ? "visible" : ""}`}>
-        <video
-          ref={videoRef}
-          className="hero-video"
-          muted
-          loop
-          playsInline
-          autoPlay
-          preload="auto"
-          poster={profilePhoto}
-          src={videoSrc || undefined}
-        />
+      <div className={`hero-video-wrapper ${isVideoLoaded || shouldSkipVideo ? "visible" : ""}`}>
+        {!shouldSkipVideo && videoSrc ? (
+          <video
+            ref={videoRef}
+            className="hero-video"
+            muted
+            loop
+            playsInline
+            autoPlay
+            preload="metadata"
+            poster={heroPoster}
+          >
+            <source src={heroVideoWebm} type="video/webm" />
+            <source src={heroVideoMp4} type="video/mp4" />
+            <img
+              src={heroPoster}
+              alt="Hero Background Fallback"
+              className="hero-video-fallback-img"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </video>
+        ) : (
+          <img
+            src={heroPoster}
+            alt="Hero Background Fallback"
+            className="hero-video-fallback-img"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        )}
         <div className="hero-overlay" />
       </div>
 
-      {/* Cinematic Name Animation Overlay (Memoized character mapping) */}
-      <IntroOverlay step={introStep} />
+      {/* Cinematic Name Animation Overlay */}
+      <IntroOverlay
+        step={introStep}
+        firstNameRef={firstNameRef}
+        lastNameRef={lastNameRef}
+        activeRow={activeRow}
+      />
 
-      {/* Floating Hero Content (Memoized content tree) */}
+      {/* Floating Hero Content */}
       <HeroContent
         isFinished={introState === "finished"}
         isAnimating={isHeroAnimating}
