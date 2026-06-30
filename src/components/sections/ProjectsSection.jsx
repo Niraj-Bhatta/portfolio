@@ -33,7 +33,7 @@ export default function ProjectsSection() {
       tags: ["ESP32", "Firebase", "C++ / Arduino", "React"],
       liveLink: "https://demo.example.com",
       gitLink: "https://github.com/Niraj-Bhatta/minor_pjt",
-      imgName: "parking.png",
+      imgName: "parking.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Cpu className="preview-icon glow-blue" size={48} />
     },

@@ -143,7 +143,7 @@ export default function ContactSection() {
     }, 5000);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check all validations
@@ -180,26 +180,49 @@ export default function ContactSection() {
 
       // On form submit, send form data using sendForm
       // --- REPLACE "YOUR_SERVICE_ID" and "YOUR_TEMPLATE_ID" with your actual EmailJS IDs ---
-      emailjsLib.sendForm(
-        "service_1jxj0nu",
-        "template_j77djos",
-        e.target
-      )
-        .then((response) => {
-          setIsSubmitting(false);
-          setSubmitSuccess(true);
-          setFormData({ name: '', email: '', subject: '', message: '' });
-          showToast("Message sent successfully! Thank you.", "success");
+try {
+  const emailjsLib = window.emailjs;
 
-          // Dismiss success state after 6 seconds
-          setTimeout(() => setSubmitSuccess(false), 6000);
-        })
-        .catch((err) => {
-          setIsSubmitting(false);
-          const errMsg = err?.text || err?.message || 'Failed to send message via EmailJS.';
-          setSubmitError(errMsg);
-          showToast(`Error: ${errMsg}`, "error");
-        });
+  emailjsLib.init("XFjDLQJnQ7DW9MxOf");
+
+  // 1. Send notification email to yourself
+  await emailjsLib.sendForm(
+    "service_1jxj0nu",
+    "template_j77djos",
+    e.target
+  );
+
+  // 2. Send auto-reply email to the visitor
+  await emailjsLib.sendForm(
+    "service_1jxj0nu",
+    "template_w818ap9",
+    e.target
+  );
+
+  setIsSubmitting(false);
+  setSubmitSuccess(true);
+  setFormData({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  showToast("Message sent successfully! Thank you.", "success");
+
+  setTimeout(() => setSubmitSuccess(false), 6000);
+
+} catch (err) {
+  setIsSubmitting(false);
+
+  const errMsg =
+    err?.text ||
+    err?.message ||
+    "Failed to send message via EmailJS.";
+
+  setSubmitError(errMsg);
+  showToast(`Error: ${errMsg}`, "error");
+}
     } catch (err) {
       setIsSubmitting(false);
       const errMsg = err?.message || 'A critical error occurred while submitting the form.';
