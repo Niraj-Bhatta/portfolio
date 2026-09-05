@@ -42,7 +42,7 @@ const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick }) => 
         <span className="gradient-text-purple">Engineer</span>
       </h1>
       <p className="hero-subtitle animate-fade-in-up">
-        Building Intelligent Systems, Full-Stack Applications, and Innovative IoT
+        Building Artificial intelligent Systems, Full-Stack Applications, and Innovative IoT
         Engineering Solutions.
       </p>
 
@@ -158,55 +158,62 @@ export default function HeroSection({ introState, setIntroState }) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isHeroAnimating, setIsHeroAnimating] = useState(false);
 
-  // 1. Pure JavaScript Typewriter Implementation
+  // 1. Pure JavaScript Typewriter Implementation with safe slice and strict timer cleanup
   useEffect(() => {
     const firstName = "NIRAJ";
     const lastName = "BHATTA";
+    let isCancelled = false;
+    const timers = [];
+
+    const schedule = (fn, delay) => {
+      const id = setTimeout(() => {
+        if (!isCancelled) fn();
+      }, delay);
+      timers.push(id);
+      return id;
+    };
 
     const startTypewriter = () => {
-      const firstEl = firstNameRef.current;
-      const lastEl = lastNameRef.current;
-      if (firstEl) firstEl.textContent = "";
-      if (lastEl) lastEl.textContent = "";
+      if (firstNameRef.current) firstNameRef.current.textContent = "";
+      if (lastNameRef.current) lastNameRef.current.textContent = "";
       
       setActiveRow("first");
       
       let i = 0;
       const typeFirst = () => {
+        if (isCancelled) return;
         if (i < firstName.length) {
-          if (firstNameRef.current) firstNameRef.current.textContent += firstName.charAt(i);
           i++;
-          setTimeout(typeFirst, 90);
+          if (firstNameRef.current) {
+            firstNameRef.current.textContent = firstName.slice(0, i);
+          }
+          schedule(typeFirst, 90);
         } else {
           setActiveRow("second");
           let j = 0;
           const typeSecond = () => {
+            if (isCancelled) return;
             if (j < lastName.length) {
-              if (lastNameRef.current) lastNameRef.current.textContent += lastName.charAt(j);
               j++;
-              setTimeout(typeSecond, 90);
+              if (lastNameRef.current) {
+                lastNameRef.current.textContent = lastName.slice(0, j);
+              }
+              schedule(typeSecond, 90);
             } else {
               setActiveRow("none");
             }
           };
-          setTimeout(typeSecond, 150); // Pause between first and last name
+          schedule(typeSecond, 150); // Pause between first and last name
         }
       };
-      setTimeout(typeFirst, 600); // Start delay
+      schedule(typeFirst, 500); // Start delay
     };
 
-    const handleLoad = () => {
-      startTypewriter();
-    };
-
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
+    startTypewriter();
 
     return () => {
-      window.removeEventListener("load", handleLoad);
+      isCancelled = true;
+      timers.forEach(clearTimeout);
     };
   }, []);
 
