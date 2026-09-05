@@ -27,6 +27,15 @@ export default function AchievementsSection() {
 
   const achievements = [
     {
+      title: "6.5K Subscribers on YouTube",
+      organization: " YouTube Channel",
+      date: "2024 - Present",
+      description: "Through consistent content creation and engagement, I have grown my YouTube channel to 6,500 subscribers. Focused on delivering high-quality tutorials and tech reviews, fostering a community of learners and enthusiasts.",
+      icon: <Star size={20} />,
+      color: "var(--accent-blue)",
+      imgName: "educationify.png"
+    },
+    {
       title: "IEEE Program Coordinator",
       organization: "IEEE Student Branch",
       date: "2026 - Present",

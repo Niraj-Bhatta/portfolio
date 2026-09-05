@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ExternalLink, Cpu, Shield, User, Globe, Calculator, Newspaper, Play, Brain, Award } from 'lucide-react';
+import { ExternalLink, Cpu, Shield, User, Globe, Calculator, Newspaper, Play } from 'lucide-react';
 import { Github } from '../ui/SocialIcons';
 import './ProjectsSection.css';
 
@@ -120,34 +120,10 @@ export default function ProjectsSection() {
       imgName: "tictactoe.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Play className="preview-icon glow-blue" size={48} />
-    },
-    {
-      id: "tumor",
-      title: "Brain Tumor Classification Model",
-      filterCategory: "ML",
-      description: "An advanced machine learning framework using Convolutional Neural Networks (CNNs) to classify brain tumor types from MRI scans with high accuracy, featuring automated data augmentation and model validation.",
-      tags: ["Python", "TensorFlow", "CNN", "Keras", "OpenCV"],
-      liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
-      imgName: "tumor.jpg",
-      glowColor: "124, 58, 237", // Purple
-      previewIcon: <Brain className="preview-icon glow-purple" size={48} />
-    },
-    {
-      id: "stock",
-      title: "Predictive Stock Market Analytics",
-      filterCategory: "ML",
-      description: "A time-series forecasting model utilizing LSTM neural networks to analyze historical stock datasets and predict prospective valuation directions, integrating live Yahoo Finance data pipelines.",
-      tags: ["Python", "Scikit-Learn", "LSTM", "Pandas", "Streamlit"],
-      liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
-      imgName: "stock.jpg",
-      glowColor: "0, 212, 255", // Blue
-      previewIcon: <Award className="preview-icon glow-blue" size={48} />
     }
   ];
 
-  const categories = ['All', 'Web', 'ML', 'Other'];
+  const categories = ['All', 'Web', 'Other'];
 
   const filteredProjects = activeFilter === 'All'
     ? projects
