@@ -28,7 +28,7 @@ const IntroOverlay = React.memo(({ step, firstNameRef, lastNameRef, activeRow })
 IntroOverlay.displayName = "IntroOverlay";
 
 // Memoized Floating Hero Content to prevent unnecessary renders during the intro
-const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick }) => {
+const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick, visitCount }) => {
   return (
     <div
       className={`hero-content ${isFinished ? "intro-finished" : "intro-playing"} ${isAnimating ? "animating" : ""
@@ -37,6 +37,19 @@ const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick }) => 
       <p className="hero-badge animate-fade-in-down">
         <span>•</span> Available for Opportunities
       </p>
+
+      {/* Live Visit Counter */}
+      <div className="hero-visit-counter animate-fade-in-down">
+        <span className="visit-eye-icon" aria-label="Visitors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </span>
+        <span className="visit-count">{visitCount.toLocaleString()}</span>
+        <span className="visit-label">visits</span>
+        <span className="visit-live-dot" aria-hidden="true" />
+      </div>
       <h1 className="hero-title animate-title">
         Aspiring <span className="gradient-text-blue">Computer</span> <br />
         <span className="gradient-text-purple">Engineer</span>
@@ -135,11 +148,29 @@ const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick }) => 
 
 HeroContent.displayName = "HeroContent";
 
+// Persistent visit counter using localStorage
+function useVisitCounter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const STORAGE_KEY = "portfolio_visit_count";
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const prev = raw ? parseInt(raw, 10) : 0;
+    const next = prev + 1;
+    localStorage.setItem(STORAGE_KEY, String(next));
+    setCount(next);
+  }, []);
+
+  return count;
+}
+
 export default function HeroSection({ introState, setIntroState }) {
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
+
+  const visitCount = useVisitCounter();
 
   const [introStep, setIntroStep] = useState("reveal"); // 'reveal' | 'fadeout' | 'done'
   const [activeRow, setActiveRow] = useState("first"); // 'first' | 'second' | 'none'
@@ -381,6 +412,7 @@ export default function HeroSection({ introState, setIntroState }) {
         isFinished={introState === "finished"}
         isAnimating={isHeroAnimating}
         handleCtaClick={handleCtaClick}
+        visitCount={visitCount}
       />
 
       {/* Scroll Down Indicator */}
