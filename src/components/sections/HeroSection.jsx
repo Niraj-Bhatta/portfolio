@@ -29,6 +29,25 @@ IntroOverlay.displayName = "IntroOverlay";
 
 // Memoized Floating Hero Content to prevent unnecessary renders during the intro
 const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick, visitCount }) => {
+  const visitorChip = (
+    <div className={`hero-visitor-panel ${isFinished ? "visible" : ""}`}>
+      <div className="visitor-panel-inner">
+        <span className="visitor-panel-eye" aria-label="Live visitors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </span>
+        <div className="visitor-panel-text">
+          <span className="visitor-panel-count">{visitCount.toLocaleString()}</span>
+          <span className="visitor-panel-label">Total Visits</span>
+        </div>
+        <span className="visitor-panel-dot" aria-hidden="true" />
+      </div>
+      <span className="visitor-panel-tag">LIVE</span>
+    </div>
+  );
+
   return (
     <div
       className={`hero-content ${isFinished ? "intro-finished" : "intro-playing"} ${isAnimating ? "animating" : ""
@@ -37,19 +56,6 @@ const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick, visit
       <p className="hero-badge animate-fade-in-down">
         <span>•</span> Available for Opportunities
       </p>
-
-      {/* Live Visit Counter */}
-      <div className="hero-visit-counter animate-fade-in-down">
-        <span className="visit-eye-icon" aria-label="Visitors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-            <circle cx="12" cy="12" r="3" />
-          </svg>
-        </span>
-        <span className="visit-count">{visitCount.toLocaleString()}</span>
-        <span className="visit-label">visits</span>
-        <span className="visit-live-dot" aria-hidden="true" />
-      </div>
       <h1 className="hero-title animate-title">
         Aspiring <span className="gradient-text-blue">Computer</span> <br />
         <span className="gradient-text-purple">Engineer</span>
@@ -141,6 +147,11 @@ const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick, visit
         >
           <MailIcon size={20} />
         </a>
+      </div>
+
+      {/* Mobile-only inline visitor chip (flows below socials, no overlap) */}
+      <div className="visitor-inline-mobile">
+        {visitorChip}
       </div>
     </div>
   );
@@ -414,6 +425,24 @@ export default function HeroSection({ introState, setIntroState }) {
         handleCtaClick={handleCtaClick}
         visitCount={visitCount}
       />
+
+      {/* Desktop-only: right-side absolute visitor panel */}
+      <div className={`hero-visitor-panel visitor-desktop-only ${introState === "finished" ? "visible" : ""}`}>
+        <div className="visitor-panel-inner">
+          <span className="visitor-panel-eye" aria-label="Live visitors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </span>
+          <div className="visitor-panel-text">
+            <span className="visitor-panel-count">{visitCount.toLocaleString()}</span>
+            <span className="visitor-panel-label">Total Visits</span>
+          </div>
+          <span className="visitor-panel-dot" aria-hidden="true" />
+        </div>
+        <span className="visitor-panel-tag">LIVE</span>
+      </div>
 
       {/* Scroll Down Indicator */}
       <div
