@@ -74,19 +74,6 @@ function MilestoneCard({ item, index, isVisible }) {
       </div>
       <h3 className="milestone-title">{item.title}</h3>
       <p className="milestone-desc">{item.desc}</p>
-      <div className="milestone-progress-track">
-        <div
-          className="milestone-progress-fill"
-          style={{
-            width: isVisible ? `${item.progress}%` : '0%',
-            background: `linear-gradient(90deg, ${item.color}, ${item.color}88)`,
-            transitionDelay: `${index * 100 + 400}ms`,
-          }}
-        />
-      </div>
-      <span className="milestone-pct" style={{ color: item.color }}>
-        {item.progress}% explored
-      </span>
     </div>
   );
 }
