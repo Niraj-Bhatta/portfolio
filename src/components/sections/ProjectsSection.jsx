@@ -55,9 +55,9 @@ export default function ProjectsSection() {
       filterCategory: "Web",
       description: "A database-centric administration platform featuring automated student registry tracking, grading schemas, analytical reports, roles/permissions levels, and academic charting panels.",
       tags: ["React", "Express", "PostgreSQL", "Tailwind"],
-      liveLink: "https://demo.example.com",
+      liveLink: "https://niraj-bhatta.github.io/student-information-system/",
       gitLink: "https://github.com/Niraj-Bhatta/student_info_sys",
-      imgName: "student.jpg",
+      imgName: "student.png",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <User className="preview-icon glow-blue" size={48} />
     },
