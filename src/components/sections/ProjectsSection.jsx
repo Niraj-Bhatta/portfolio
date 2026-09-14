@@ -69,7 +69,7 @@ export default function ProjectsSection() {
       tags: ["Django", "HTML", "CSS", "SQLite"],
       liveLink: "https://banking-system-tfsd.onrender.com/",
       gitLink: "https://github.com/Niraj-Bhatta/Banking_System",
-      imgName: "banking.png",
+      imgName: "banking.png/",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Globe className="preview-icon glow-purple" size={48} />
     },
