@@ -31,8 +31,8 @@ export default function ProjectsSection() {
       filterCategory: "Other",
       description: "An automated real-time IoT solution using ESP32, IR sensors, and ultrasonic modules to detect stall occupancy. Synchronizes data with Firebase Realtime Database for live web app parking status and reservation mapping.",
       tags: ["ESP32", "Firebase", "C++ / Arduino", "React"],
-      liveLink: "https://demo.example.com",
-      gitLink: "https://github.com/Niraj-Bhatta/minor_pjt",
+      liveLink: "https://niraj-bhatta.github.io/Smart_parking_system/",
+      gitLink: "https://github.com/Niraj-Bhatta/Smart_parking_system",
       imgName: "parking.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Cpu className="preview-icon glow-blue" size={48} />
@@ -98,14 +98,26 @@ export default function ProjectsSection() {
       previewIcon: <Newspaper className="preview-icon glow-purple" size={48} />
     },
     {
-      id: "tictactoe",
-      title: "Tic Tac Toe Game",
-      filterCategory: "Other",
-      description: "A responsive tic-tac-toe application with custom local matches, score logs, smart AI agent modes using minimax evaluations, visual grid glows, and audio-sfx triggers.",
-      tags: ["React", "CSS Grid", "Minimax AI"],
+      id: "news",
+      title: "News Portal",
+      filterCategory: "Web",
+      description: "A comprehensive media publication engine fetching international stories, incorporating customized categorization panels, reader review threads, bookmarks collection, and article caching layers.",
+      tags: ["React", "Node.js", "MongoDB", "NewsAPI"],
       liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
-      imgName: "tictactoe.jpg",
+      gitLink: "https://github.com/Niraj-Bhatta/react-project/tree/main/my-project/newsapp",
+      imgName: "news.png",
+      glowColor: "124, 58, 237", // Purple
+      previewIcon: <Newspaper className="preview-icon glow-purple" size={48} />
+    },
+    {
+      id: "weather-api",
+      title: "Weather API App",
+      filterCategory: "Web",
+      description: "A responsive weather application built with HTML, CSS, and JavaScript, featuring real-time weather data fetched through a weather API, city-based search, current temperature and conditions, humidity, wind speed, weather icons, and a clean responsive interface",
+      tags: ["HTML", "CSS", "JavaScript", "Weather API"],
+      liveLink: "https://niraj-bhatta.github.io/weather-app/",
+      gitLink: "https://github.com/Niraj-Bhatta/weather-app",
+      imgName: "weather.png",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Play className="preview-icon glow-blue" size={48} />
     },
