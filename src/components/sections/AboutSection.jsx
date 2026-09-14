@@ -1,47 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { BookOpen, Code, Cpu, Brain, Trophy, Users } from 'lucide-react';
+import { BookOpen, Code, Cpu, Brain, Users, Bot } from 'lucide-react';
 import './AboutSection.css';
-
-// Custom Counter Hook or Helper component
-function Counter({ end, duration = 2000, suffix = "" }) {
-  const [count, setCount] = useState(0);
-  const elementRef = useRef(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          let startTime = null;
-
-          const animate = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            setCount(Math.floor(progress * end));
-
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            }
-          };
-
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => {
-      if (elementRef.current) observer.unobserve(elementRef.current);
-    };
-  }, [end, duration]);
-
-  return <span ref={elementRef}>{count}{suffix}</span>;
-}
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -88,9 +47,9 @@ export default function AboutSection() {
       desc: "Formulating algorithms, analyzing computational complexity, and resolving data structures problems under time limits."
     },
     {
-      icon: <Trophy className="pillar-icon" />,
-      title: "Hackathons",
-      desc: "Collaborating in high-pressure 48-hour sprints, prototyping software/hardware innovations, and pitching to industry panels."
+      icon: <Bot className="pillar-icon" />,
+      title: "AI/ML Learner",
+      desc: "Exploring machine learning algorithms, training neural networks, and building predictive models for data-driven insights."
     },
     {
       icon: <Users className="pillar-icon" />,
@@ -110,26 +69,13 @@ export default function AboutSection() {
         {/* Intro Text */}
         <div className="about-intro-card glass-panel">
           <h3>Architecting the Future</h3>
+          <h4 className="ai-descriptor">Passionate AI/ML Learner</h4>
           <p>
             I am a passionate Computer Engineering student driven by a mission to build scalable, intelligent, and highly optimized hardware-software systems.
           </p>
           <p>
             Bridging the gap between code and physical computing, I leverage modern full-stack development methodologies along with IoT architecture to create solutions that address real-world challenges. My approach is characterized by clean modular designs, rigorous performance checks, and continuous learning.
           </p>
-          <div className="stats-row">
-            <div className="stat-item">
-              <span className="stat-num"><Counter end={12} suffix="+" /></span>
-              <span className="stat-lbl">Projects Done</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-num"><Counter end={5} suffix="+" /></span>
-              <span className="stat-lbl">Hackathons</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-num"><Counter end={1500} suffix="+" /></span>
-              <span className="stat-lbl">Hours Coding</span>
-            </div>
-          </div>
         </div>
 
         {/* Dynamic Pillars */}

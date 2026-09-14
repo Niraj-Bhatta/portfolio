@@ -38,18 +38,6 @@ export default function ProjectsSection() {
       previewIcon: <Cpu className="preview-icon glow-blue" size={48} />
     },
     {
-      id: "gov",
-      title: "Government Document Verification System",
-      filterCategory: "Web",
-      description: "A secure digital portal utilizing cryptographic hashing and authorization nodes to verify state certificates and identity credentials, minimizing forgery and administrative overhead.",
-      tags: ["Node.js", "Express", "React", "MongoDB", "Crypto"],
-      liveLink: "https://demo.example.com",
-      gitLink: "https://github.com",
-      imgName: "verification.jpg",
-      glowColor: "124, 58, 237", // Purple
-      previewIcon: <Shield className="preview-icon glow-purple" size={48} />
-    },
-    {
       id: "student",
       title: "Student Info Management System",
       filterCategory: "Web",
@@ -79,9 +67,9 @@ export default function ProjectsSection() {
       filterCategory: "Web",
       description: "A modern banking application that allows users to perform various banking operations like deposits, withdrawals, and transfers.",
       tags: ["Django", "HTML", "CSS", "SQLite"],
-      liveLink: "https://eg",
+      liveLink: "https://banking-system-tfsd.onrender.com/",
       gitLink: "https://github.com/Niraj-Bhatta/Banking_System",
-      imgName: "banking.jpg",
+      imgName: "banking.png",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Globe className="preview-icon glow-purple" size={48} />
     },
@@ -120,6 +108,18 @@ export default function ProjectsSection() {
       imgName: "tictactoe.jpg",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Play className="preview-icon glow-blue" size={48} />
+    },
+    {
+      id: "gov",
+      title: "Government Document Verification System",
+      filterCategory: "Web",
+      description: "A secure digital portal utilizing cryptographic hashing and authorization nodes to verify state certificates and identity credentials, minimizing forgery and administrative overhead.",
+      tags: ["Node.js", "Express", "React", "MongoDB", "Crypto"],
+      liveLink: "https://demo.example.com",
+      gitLink: "https://github.com",
+      imgName: "verification.jpg",
+      glowColor: "124, 58, 237", // Purple
+      previewIcon: <Shield className="preview-icon glow-purple" size={48} />
     }
   ];
 

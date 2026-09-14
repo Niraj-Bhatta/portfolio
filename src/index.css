@@ -60,6 +60,10 @@ body {
   min-height: 100vh;
 }
 
+p {
+  text-align: justify;
+}
+
 /* Custom Selection */
 ::selection {
   background: rgba(var(--accent-blue-rgb), 0.3);
