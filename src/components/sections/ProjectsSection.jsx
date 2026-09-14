@@ -91,9 +91,9 @@ export default function ProjectsSection() {
       filterCategory: "Other",
       description: "A high-performance calculator app featuring clean layouts, historical calculation memories, modular equations parsing, scientific operational triggers, and visual grid transitions.",
       tags: ["HTML5", "CSS3 Modules", "Vanilla JS"],
-      liveLink: "https://demo.example.com",
+      liveLink: "https://niraj-bhatta.github.io/Calculator/",
       gitLink: "https://github.com/Niraj-Bhatta/Calculator",
-      imgName: "calculator.jpg",
+      imgName: "calculator.png",
       glowColor: "0, 212, 255", // Blue
       previewIcon: <Calculator className="preview-icon glow-blue" size={48} />
     },

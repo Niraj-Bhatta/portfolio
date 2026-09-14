@@ -114,13 +114,20 @@ export default function ExperienceSection() {
           <span className="exp-badge-dot" />
           <span>Journey in Progress</span>
         </div>
-        <h2 className="section-title exp-section-title">
-          Gaining{' '}
-          <span className="gradient-text-blue">Experiences</span>
-          <br />
-          &amp; Building{' '}
-          <span className="gradient-text-purple">Intelligent Systems</span>
-        </h2>
+        <h2
+  className="section-title exp-section-title"
+  style={{
+    display: 'flex',
+    flexWrap: 'nowrap',
+    whiteSpace: 'nowrap',
+    justifyContent: 'center',
+    gap: '0.3em',
+    fontSize: 'clamp(1rem, 4vw, 3rem)',
+  }}
+>
+  <span>Gaining &amp; Building</span>
+  <span className="gradient-text-purple">Intelligent Systems</span>
+</h2>
         <p className="exp-subtitle">
           Every line of code, every model trained, every system deployed — is a step forward in crafting the future of intelligent technology.
         </p>
@@ -136,12 +143,10 @@ export default function ExperienceSection() {
       {/* Bottom quote strip */}
       <div className={`exp-quote-strip ${isVisible ? 'visible' : ''}`}>
         <div className="exp-quote-inner">
-          <span className="exp-quote-icon">✦</span>
           <p className="exp-quote-text">
             "The best way to predict the future is to invent it."
           </p>
           <span className="exp-quote-attr">— Alan Kay</span>
-          <span className="exp-quote-icon">✦</span>
         </div>
       </div>
     </section>
