@@ -98,14 +98,14 @@ export default function ProjectsSection() {
       previewIcon: <Newspaper className="preview-icon glow-purple" size={48} />
     },
     {
-      id: "news",
-      title: "News Portal",
+      id: "scissor-paper-rock",
+      title: "Scissor Paper Rock",
       filterCategory: "Web",
-      description: "A comprehensive media publication engine fetching international stories, incorporating customized categorization panels, reader review threads, bookmarks collection, and article caching layers.",
-      tags: ["React", "Node.js", "MongoDB", "NewsAPI"],
-      liveLink: "https://demo.example.com",
-      gitLink: "https://github.com/Niraj-Bhatta/react-project/tree/main/my-project/newsapp",
-      imgName: "news.png",
+      description: "An interactive Scissors Paper Rock game built with HTML, CSS, and JavaScript, featuring a responsive interface, real-time player and computer choices, dynamic game results, score tracking, and engaging visual feedback for an enjoyable browser-based gaming experience",
+      tags: ["HTML","css","JS"],
+      liveLink: "https://niraj-bhatta.github.io/scissior-paper-rock/",
+      gitLink: "https://github.com/Niraj-Bhatta/scissior-paper-rock",
+      imgName: "rock.png",
       glowColor: "124, 58, 237", // Purple
       previewIcon: <Newspaper className="preview-icon glow-purple" size={48} />
     },
