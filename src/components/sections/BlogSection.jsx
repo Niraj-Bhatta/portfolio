@@ -32,51 +32,11 @@ const categoryMeta = {
 const blogPosts = [
   {
     id: 1,
-    title: 'Getting Started with Machine Learning: A Practical Guide',
-    excerpt: 'A beginner-friendly walkthrough of core ML concepts, from linear regression to neural networks, with hands-on Python examples.',
-    category: 'AI/ML',
-    readTime: '6 min read',
-    mediumUrl: 'https://medium.com/@yourusername',
-  },
-  {
-    id: 2,
-    title: 'Building IoT Systems with ESP32 and MQTT',
-    excerpt: 'Step-by-step guide to connecting ESP32 devices to an MQTT broker for real-time data streaming and remote control.',
-    category: 'IoT',
-    readTime: '8 min read',
-    mediumUrl: 'https://medium.com/@yourusername',
-  },
-  {
-    id: 3,
-    title: 'Modern React Patterns Every Developer Should Know',
-    excerpt: 'Exploring compound components, render props, custom hooks, and context patterns to write cleaner, scalable React apps.',
-    category: 'Web',
-    readTime: '5 min read',
-    mediumUrl: 'https://medium.com/@yourusername',
-  },
-  {
-    id: 4,
-    title: 'Transformer Architecture Explained from Scratch',
-    excerpt: 'Breaking down the self-attention mechanism, positional encoding, and encoder-decoder structure that powers modern LLMs.',
-    category: 'AI/ML',
-    readTime: '10 min read',
-    mediumUrl: 'https://medium.com/@yourusername',
-  },
-  {
-    id: 5,
-    title: 'Edge Computing with Raspberry Pi and TensorFlow Lite',
-    excerpt: 'Running inference at the edge: deploying a lightweight image classification model on Raspberry Pi without cloud dependency.',
-    category: 'IoT',
-    readTime: '7 min read',
-    mediumUrl: 'https://medium.com/@yourusername',
-  },
-  {
-    id: 6,
-    title: 'My Journey from Engineering Student to Developer',
-    excerpt: 'Lessons learned, mistakes made, and the mindset shifts that helped me grow as a developer during my engineering years.',
+    title: 'Nepal had the technology to see this flood coming. It still killed over 1,500 people.',
+    excerpt: 'A look into the devastating floods in Nepal, exploring how despite having the technological means for prediction, a massive loss of life still occurred.',
     category: 'Other',
-    readTime: '4 min read',
-    mediumUrl: 'https://medium.com/@yourusername',
+    readTime: '7 min read',
+    mediumUrl: 'https://medium.com/@bhattaniraj559/nepal-had-the-technology-to-see-this-flood-coming-it-still-killed-over-1-500-people-1db1c235f467?sharedUserId=bhattaniraj559',
   },
 ];
 
@@ -188,7 +148,7 @@ export default function BlogSection() {
       {/* CTA to Medium */}
       <div className="blog-cta">
         <a
-          href="https://medium.com/@yourusername"
+          href="https://medium.com/@bhattaniraj559"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary blog-cta-btn"
