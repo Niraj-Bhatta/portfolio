@@ -17,6 +17,9 @@ export default function Navbar() {
         setIsScrolled(false);
       }
 
+      // Close mobile menu on scroll
+      setIsOpen(false);
+
       // Scroll progress percentage
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (totalHeight > 0) {
