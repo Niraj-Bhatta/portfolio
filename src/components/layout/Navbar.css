@@ -170,6 +170,17 @@
   padding: 10px; /* Padding for minimum 44px touch target */
   min-width: 44px;
   min-height: 44px;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.mobile-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent-blue);
+}
+
+.mobile-toggle:active {
+  transform: scale(0.95);
 }
 
 /* Mobile Drawer (Slide down) */
@@ -208,15 +219,23 @@
   text-decoration: none;
   font-size: 1.15rem;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   height: 48px; /* Touch target minimum */
   width: fit-content;
+  padding: 0 12px;
+  border-radius: 8px;
+  margin-left: -12px; /* Offset the padding to align text visually */
 }
 
-.mobile-link:hover {
+.mobile-link:hover, .mobile-link:active {
   color: var(--accent-blue);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-link:active {
+  transform: scale(0.98);
 }
 
 .mobile-cta {
