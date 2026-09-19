@@ -8,6 +8,17 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  // Close menu if touching outside
+  useEffect(() => {
+    const handleTouchOutside = (e) => {
+      if (isOpen && !e.target.closest('.mobile-drawer') && !e.target.closest('.mobile-toggle')) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('touchstart', handleTouchOutside, { passive: true });
+    return () => document.removeEventListener('touchstart', handleTouchOutside);
+  }, [isOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
       // Background change on scroll
@@ -17,8 +28,6 @@ export default function Navbar() {
         setIsScrolled(false);
       }
 
-      // Close mobile menu on scroll
-      setIsOpen(false);
 
       // Scroll progress percentage
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
