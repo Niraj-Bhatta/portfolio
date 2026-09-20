@@ -327,12 +327,16 @@
 
 .hero-ctas {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
   margin-top: 15px;
 }
 
 .hero-socials {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
   margin-top: 15px;
 }
@@ -511,13 +515,22 @@
 @media (max-width: 768px) {
   .hero-container {
     --indicator-start-bottom: 20px;
+    padding: 0 16px;
   }
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     letter-spacing: -1px;
   }
   .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  .hero-ctas, .hero-socials {
+    gap: 10px;
+  }
+  .social-icon-btn {
+    width: 40px;
+    height: 40px;
   }
 }
 

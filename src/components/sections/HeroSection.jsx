@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon } from "../ui/SocialIcons";
+import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon, Medium } from "../ui/SocialIcons";
 import "./HeroSection.css";
 import heroVideoMp4 from "../../assets/niraj-video-compressed.mp4";
 import heroVideoWebm from "../../assets/niraj-video-compressed.webm";
@@ -137,6 +137,15 @@ const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick, visit
           aria-label="YouTube"
         >
           <Youtube size={20} />
+        </a>
+        <a
+          href="https://medium.com/@bhattaniraj559"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-icon-btn"
+          aria-label="Medium"
+        >
+          <Medium size={20} />
         </a>
         <a
           href="mailto:bhattaniraj559@gmail.com"

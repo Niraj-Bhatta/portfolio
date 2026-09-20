@@ -19,6 +19,30 @@ export default function Navbar() {
     return () => document.removeEventListener('touchstart', handleTouchOutside);
   }, [isOpen]);
 
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    const handleTouchMove = (e) => {
+      // Prevent scrolling if touching outside the drawer
+      if (isOpen && !e.target.closest('.mobile-drawer')) {
+        e.preventDefault();
+      }
+    };
+
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      // Use passive: false to allow preventDefault on iOS
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    } else {
+      document.body.style.overflow = '';
+      document.removeEventListener('touchmove', handleTouchMove);
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
       // Background change on scroll

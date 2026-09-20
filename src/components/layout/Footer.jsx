@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
-import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon } from '../ui/SocialIcons';
+import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon, Medium } from '../ui/SocialIcons';
 import './Footer.css';
 
 export default function Footer() {
@@ -39,6 +39,9 @@ export default function Footer() {
           </a>
           <a href="mailto:bhattaniraj559@gmail.com" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Email">
             <MailIcon size={18} />
+          </a>
+          <a href="https://medium.com/@bhattaniraj559" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Medium">
+            <Medium size={18} />
           </a>
         </div>
 
