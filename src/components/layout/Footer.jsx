@@ -50,6 +50,9 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} @niraj_bhatta. All Rights Reserved. Crafted for Innovation.</p>
+        <p className="last-updated" style={{ marginTop: '5px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+          Last updated: September 20, 2026
+        </p>
       </div>
     </footer>
   );
