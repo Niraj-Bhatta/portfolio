@@ -334,6 +334,15 @@
     font-size: 0.95rem;
     padding: 0 20px;
   }
+  .learning-phase-section {
+    margin-top: 40px;
+  }
+  .learning-phase-title {
+    font-size: 1.3rem;
+  }
+  .learning-phase-desc {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -342,5 +351,36 @@
   }
   .skill-logos-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .skill-card {
+    padding: 18px;
+  }
+  .skill-card-header {
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+  .skill-card-emoji {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+  }
+  .skill-card-header h3 {
+    font-size: 1.05rem;
+  }
+  .skill-logo-wrapper {
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+  }
+  .skill-logo-label {
+    font-size: 0.72rem;
+  }
+  .learning-card {
+    padding: 22px 18px;
+  }
+  .learning-badge {
+    padding: 8px 16px;
+    font-size: 0.82rem;
   }
 }

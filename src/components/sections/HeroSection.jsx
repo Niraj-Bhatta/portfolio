@@ -296,7 +296,12 @@ export default function HeroSection({ introState, setIntroState }) {
 
     const handleCanPlay = () => {
       setIsVideoLoaded(true);
-      video.play().catch((err) => console.log("Autoplay error: ", err));
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          if (err.name !== 'AbortError') console.log("Autoplay error: ", err);
+        });
+      }
     };
 
     if (video.readyState >= 3) {
@@ -321,7 +326,12 @@ export default function HeroSection({ introState, setIntroState }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           if (video.paused) {
-            video.play().catch((err) => console.log("Video resume on scroll error:", err));
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch((err) => {
+                if (err.name !== 'AbortError') console.log("Video resume on scroll error:", err);
+              });
+            }
           }
         } else {
           if (!video.paused) {

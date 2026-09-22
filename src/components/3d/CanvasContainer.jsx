@@ -163,10 +163,10 @@ export default function CanvasContainer() {
 
     // 7. Animation loop
     let animationFrameId;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) / 1000;
 
       // Smooth mouse follow (lerping)
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
