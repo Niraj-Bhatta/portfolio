@@ -111,5 +111,12 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
+    gap: 24px;
+  }
+
+  .footer-socials {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
   }
 }
