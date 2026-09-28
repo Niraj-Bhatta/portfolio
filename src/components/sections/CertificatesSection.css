@@ -405,3 +405,43 @@
     font-size: 0.85rem;
   }
 }
+
+@media (max-width: 480px) {
+  .cert-card {
+    padding: 14px;
+    gap: 12px;
+  }
+  .cert-title {
+    font-size: 1.02rem;
+  }
+  .cert-issuer {
+    font-size: 0.72rem;
+  }
+  .cert-meta {
+    font-size: 0.78rem;
+  }
+  .cert-badge-icon {
+    top: 22px;
+    right: 22px;
+    width: 30px;
+    height: 30px;
+  }
+  .lightbox-overlay {
+    padding: 12px 8px;
+  }
+  .lightbox-details {
+    padding: 20px 16px;
+  }
+  .lightbox-visual {
+    padding: 16px;
+  }
+  .lightbox-details h2 {
+    font-size: 1.2rem;
+  }
+  .lightbox-desc {
+    font-size: 0.88rem;
+  }
+  .meta-list-item {
+    font-size: 0.82rem;
+  }
+}

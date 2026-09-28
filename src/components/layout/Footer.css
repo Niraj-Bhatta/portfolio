@@ -120,3 +120,26 @@
     gap: 12px;
   }
 }
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 40px 16px 24px 16px;
+  }
+  .brand-logo {
+    font-size: 1.1rem;
+  }
+  .brand-tagline {
+    font-size: 0.8rem;
+  }
+  .footer-bottom {
+    font-size: 0.72rem;
+  }
+  .social-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .scroll-top-btn {
+    width: 40px;
+    height: 40px;
+  }
+}

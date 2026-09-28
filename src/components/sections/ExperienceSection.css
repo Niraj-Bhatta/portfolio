@@ -275,4 +275,40 @@
     flex-direction: column;
     gap: 8px;
   }
+  .exp-header {
+    margin-bottom: 40px;
+  }
+  .exp-subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .milestone-card {
+    padding: 22px 18px 18px;
+  }
+  .milestone-title {
+    font-size: 1.05rem;
+  }
+  .milestone-desc {
+    font-size: 0.85rem;
+  }
+  .milestone-icon {
+    font-size: 1.5rem;
+  }
+  .milestone-status {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+  .exp-quote-strip {
+    margin-top: 40px;
+    padding: 20px 18px;
+  }
+  .exp-quote-text {
+    font-size: 0.95rem;
+  }
+  .exp-badge {
+    font-size: 0.72rem;
+    padding: 5px 14px;
+  }
 }

@@ -290,6 +290,33 @@
   }
 }
 
+@media (max-width: 480px) {
+  .blog-card-body {
+    padding: 18px;
+    gap: 10px;
+  }
+  .blog-card-title {
+    font-size: 0.95rem;
+  }
+  .blog-card-excerpt {
+    font-size: 0.82rem;
+  }
+  .blog-card-banner {
+    height: 90px;
+  }
+  .blog-card-emoji {
+    font-size: 2.5rem;
+  }
+  .blog-cta-btn {
+    padding: 11px 24px;
+    font-size: 0.88rem;
+  }
+  .blog-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 30px;
+  }
+}
+
 @media (min-width: 1200px) {
   .blog-grid {
     grid-template-columns: repeat(3, 1fr);

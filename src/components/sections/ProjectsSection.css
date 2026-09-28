@@ -264,3 +264,29 @@
     -webkit-line-clamp: 4; /* give mobile a bit more context */
   }
 }
+
+@media (max-width: 480px) {
+  .project-details {
+    padding: 18px;
+  }
+  .project-title {
+    font-size: 1.15rem;
+  }
+  .project-desc {
+    font-size: 0.85rem;
+  }
+  .tag-badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+  .project-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .action-btn {
+    width: 100%;
+  }
+  .card-top-bar {
+    padding: 10px 14px;
+  }
+}

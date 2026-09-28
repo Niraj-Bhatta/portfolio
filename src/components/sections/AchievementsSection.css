@@ -124,3 +124,20 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .achievement-card {
+    padding: 18px;
+    gap: 14px;
+  }
+  .achievement-info h3 {
+    font-size: 1.1rem;
+  }
+  .achievement-info p {
+    font-size: 0.85rem;
+  }
+  .achievement-meta .org,
+  .achievement-meta .date {
+    font-size: 0.75rem;
+  }
+}
