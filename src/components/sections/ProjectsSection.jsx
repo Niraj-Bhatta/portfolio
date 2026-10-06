@@ -91,7 +91,7 @@ export default function ProjectsSection() {
       filterCategory: "Web",
       description: "A comprehensive media publication engine fetching international stories, incorporating customized categorization panels, reader review threads, bookmarks collection, and article caching layers.",
       tags: ["React", "Node.js", "MongoDB", "NewsAPI"],
-      liveLink: "https://demo.example.com",
+      liveLink: "https://react-project-4k3h.vercel.app/",
       gitLink: "https://github.com/Niraj-Bhatta/react-project/tree/main/my-project/newsapp",
       imgName: "news.png",
       glowColor: "124, 58, 237", // Purple
