@@ -56,11 +56,14 @@
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
               box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+  border-color: var(--card-border-hover);
+  box-shadow: 0 15px 35px var(--card-hover-shadow),
               0 0 20px rgba(var(--accent-blue-rgb), 0.15);
 }
 
@@ -71,7 +74,7 @@
   align-items: center;
   padding: 12px 20px;
   border-bottom: 1px solid var(--card-border);
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--card-header-bg);
 }
 
 .window-dots {
@@ -105,7 +108,7 @@
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--card-border);
-  background-color: #030712;
+  background-color: var(--card-inner-bg);
 }
 
 .project-cover-image {
@@ -213,7 +216,7 @@
 }
 
 .tag-badge {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--card-inner-bg);
   border: 1px solid var(--card-border);
   padding: 4px 10px;
   font-size: 0.75rem;

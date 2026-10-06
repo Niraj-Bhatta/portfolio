@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Terminal } from 'lucide-react';
+import ThemeToggle from '../ui/ThemeToggle';
 import './Navbar.css';
 import myPhoto from '../../assets/hero-nav.png';
 
@@ -123,20 +124,28 @@ export default function Navbar() {
           >
             Hire Me
           </a>
+          <ThemeToggle id="desktop-theme-toggle" className="desktop-toggle" />
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          className="mobile-toggle"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile Actions: Theme Toggle + Hamburger */}
+        <div className="navbar-mobile-actions">
+          <ThemeToggle id="mobile-header-theme-toggle" className="mobile-header-toggle" />
+          <button
+            className="mobile-toggle"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
+        <div className="mobile-drawer-header">
+          <span className="mobile-theme-text">Mode</span>
+          <ThemeToggle id="mobile-drawer-theme-toggle" className="drawer-theme-toggle" />
+        </div>
         <div className="mobile-links">
           {navLinks.map((link) => (
             <a

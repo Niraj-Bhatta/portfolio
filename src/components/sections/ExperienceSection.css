@@ -4,7 +4,7 @@
 
 /* Gradient text helpers (shared with HeroSection palette) */
 .gradient-text-blue {
-  background: linear-gradient(135deg, #ffffff 40%, var(--accent-blue));
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-blue));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -151,7 +151,7 @@
 
 .milestone-card:hover {
   transform: translateY(-6px) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.07);
+  box-shadow: 0 20px 60px var(--card-hover-shadow), 0 0 0 1px var(--card-border);
 }
 
 /* Ambient colour glow in top-left corner */
@@ -222,7 +222,7 @@
     rgba(var(--accent-blue-rgb), 0.06) 0%,
     rgba(var(--accent-purple-rgb), 0.06) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--card-border);
   text-align: center;
 
   opacity: 0;

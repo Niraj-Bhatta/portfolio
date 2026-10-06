@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import CustomCursor from './components/ui/CustomCursor';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -32,31 +33,33 @@ export default function App() {
   }, [introState]);
 
   return (
-    <div className={`app-wrapper intro-${introState}`}>
-      {/* Premium Custom Mouse Follower */}
-      <CustomCursor />
+    <ThemeProvider>
+      <div className={`app-wrapper intro-${introState}`}>
+        {/* Premium Custom Mouse Follower */}
+        <CustomCursor />
 
-      {/* Fixed top Navbar */}
-      <Navbar />
+        {/* Fixed top Navbar */}
+        <Navbar />
 
-      {/* 3D WebGL Background Scene */}
-      <CanvasContainer />
+        {/* 3D WebGL Background Scene */}
+        <CanvasContainer />
 
-      {/* Portfolio Sections */}
-      <main>
-        <HeroSection introState={introState} setIntroState={setIntroState} />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <CertificatesSection />
-        <BlogSection />
-        <AchievementsSection />
-        <ExperienceSection />
-        <ContactSection />
-      </main>
+        {/* Portfolio Sections */}
+        <main>
+          <HeroSection introState={introState} setIntroState={setIntroState} />
+          <AboutSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <CertificatesSection />
+          <BlogSection />
+          <AchievementsSection />
+          <ExperienceSection />
+          <ContactSection />
+        </main>
 
-      {/* Footer */}
-      <Footer />
-    </div>
+        {/* Footer */}
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }

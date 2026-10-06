@@ -147,6 +147,44 @@ export default function CanvasContainer() {
       meshes.push(mesh);
     });
 
+    // Handle theme adaptations for 3D elements
+    const applyThemeToScene = (currentTheme) => {
+      const isLightTheme = currentTheme === 'light';
+      if (isLightTheme) {
+        particleMaterial.blending = THREE.NormalBlending;
+        particleMaterial.opacity = 0.55;
+        materials[0].color.setHex(0x0284c7);
+        materials[0].opacity = 0.5;
+        materials[1].color.setHex(0x7c3aed);
+        materials[1].opacity = 0.5;
+        materials[2].color.setHex(0x0284c7);
+        materials[2].opacity = 0.5;
+        materials[3].color.setHex(0x7c3aed);
+        materials[3].opacity = 0.5;
+      } else {
+        particleMaterial.blending = THREE.AdditiveBlending;
+        particleMaterial.opacity = 0.8;
+        materials[0].color.setHex(0x00d4ff);
+        materials[0].opacity = 0.4;
+        materials[1].color.setHex(0x7c3aed);
+        materials[1].opacity = 0.4;
+        materials[2].color.setHex(0x00d4ff);
+        materials[2].opacity = 0.4;
+        materials[3].color.setHex(0x7c3aed);
+        materials[3].opacity = 0.4;
+      }
+      particleMaterial.needsUpdate = true;
+      materials.forEach(m => { m.needsUpdate = true; });
+    };
+
+    // Apply on load
+    applyThemeToScene(document.documentElement.getAttribute('data-theme') || 'dark');
+
+    const handleThemeChange = (e) => {
+      applyThemeToScene(e.detail?.theme || 'dark');
+    };
+    window.addEventListener('themechange', handleThemeChange);
+
     // Handle Window Resizing
     const handleResize = () => {
       if (!containerRef.current) return;
@@ -203,6 +241,7 @@ export default function CanvasContainer() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('themechange', handleThemeChange);
       cancelAnimationFrame(animationFrameId);
 
       if (containerRef.current && renderer.domElement) {

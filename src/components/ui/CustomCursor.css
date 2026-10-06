@@ -52,8 +52,8 @@
 
 .custom-cursor-outer.clicked {
   transform: translate3d(-50%, -50%, 0) scale(0.9);
-  border-color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--text-primary);
+  background-color: rgba(var(--accent-blue-rgb), 0.2);
 }
 
 /* Hide cursor on small viewports and touch-enabled devices */

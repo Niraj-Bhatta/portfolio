@@ -11,11 +11,12 @@
 }
 
 .navbar-container.scrolled {
-  background: rgba(10, 10, 10, 0.75);
+  background: var(--nav-bg-scrolled);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid var(--card-border);
   height: 70px;
+  box-shadow: 0 4px 20px -2px var(--shadow-color);
 }
 
 /* Scroll Progress Bar */
@@ -159,9 +160,19 @@
   align-items: center;
 }
 
+/* Theme toggles and mobile header actions */
+.desktop-toggle {
+  margin-left: 6px;
+}
+
+.navbar-mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+
 /* Mobile Toggle */
 .mobile-toggle {
-  display: none;
   background: none;
   border: none;
   color: var(--text-primary);
@@ -172,10 +183,13 @@
   min-height: 44px;
   transition: all 0.2s ease;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mobile-toggle:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(var(--accent-blue-rgb), 0.1);
   color: var(--accent-blue);
 }
 
@@ -191,19 +205,36 @@
   width: 100%;
   height: auto;
   max-height: calc(100vh - var(--nav-height));
-  background: rgba(10, 10, 10, 0.96);
+  background: var(--nav-bg-scrolled);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--card-border);
+  box-shadow: 0 16px 36px var(--shadow-color);
   z-index: 999;
   transform: translateY(-155%); /* Hidden by sliding up */
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  padding: 30px 24px;
+  padding: 24px 24px 30px;
   display: none; /* Hidden on desktop */
   flex-direction: column;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+}
+
+.mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.mobile-theme-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
 }
 
 .mobile-drawer.open {
@@ -259,8 +290,8 @@
   .navbar-links {
     display: none;
   }
-  .mobile-toggle {
-    display: block;
+  .navbar-mobile-actions {
+    display: flex;
   }
   .mobile-drawer {
     display: flex;
