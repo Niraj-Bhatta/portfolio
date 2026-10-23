@@ -12,6 +12,7 @@ import SkillsSection from './components/sections/SkillsSection';
 import ProjectsSection from './components/sections/ProjectsSection';
 import CertificatesSection from './components/sections/CertificatesSection';
 import BlogSection from './components/sections/BlogSection';
+import PapersSection from './components/sections/PapersSection';
 import AchievementsSection from './components/sections/AchievementsSection';
 import ExperienceSection from './components/sections/ExperienceSection';
 import ContactSection from './components/sections/ContactSection';
@@ -52,6 +53,7 @@ export default function App() {
           <ProjectsSection />
           <CertificatesSection />
           <BlogSection />
+          <PapersSection />
           <AchievementsSection />
           <ExperienceSection />
           <ContactSection />

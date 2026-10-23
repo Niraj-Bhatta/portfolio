@@ -71,6 +71,7 @@ export default function Navbar() {
     { name: 'Projects', href: '#projects' },
     { name: 'Certificates', href: '#certificates' },
     { name: 'Blog', href: '#blog' },
+    { name: 'Papers', href: '#papers' },
     { name: 'Achievements', href: '#achievements' },
     { name: 'Experience', href: '#experience' },
     { name: 'Contact', href: '#contact' },

@@ -28,9 +28,9 @@ export default function AchievementsSection() {
   const achievements = [
     {
       title: "Research Paper Published",
-      organization: " ICICSET-2026",
+      organization: "ICICSET-2026",
       date: "October 2026",
-      description: "Submitted my research paper titled on IoT based Smart Parking System using Esp32 and Environmental Hazard Monitoring in ICICSET-2026.",
+      description: "Published research paper titled \"An IoT-Based Smart Parking Management System with Automatic Number Plate Recognition and Environmental Hazard Monitoring\" in the Proceedings of ICICSET (Vol. 3, Issue 1). DOI: 10.65091/icicset.v3i1.95",
       icon: <Star size={20} />,
       color: "var(--accent-blue)",
       imgName: "conference.JPG"
