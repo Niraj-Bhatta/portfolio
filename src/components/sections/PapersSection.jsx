@@ -18,6 +18,7 @@ const papers = [
     articleUrl: "https://journal.ncit.edu.np/index.php/icicset/article/view/95",
     pdfUrl: "https://journal.ncit.edu.np/index.php/icicset/article/download/95/87",
     status: "Published",
+    imgName: "conference.JPG",
     tags: ["IoT", "ESP32", "Smart Parking", "ANPR", "YOLOv8", "Firebase", "React.js", "Environmental Monitoring", "Nepal"],
     abstract:
       "Parking is a growing problem in urbanizing Nepali cities, where many parking lots still rely on manual occupancy recording, vehicle logging, and cash transactions. Although past IoT applications have looked into parking systems, Nepali ANPR, reservation management, and automatic parking payments have been investigated separately in earlier research, there are very few cases where all these aspects are combined together along with environmental hazard detection into a single, low-cost physical model. This paper presents a connected IoT-based smart parking system using ESP32/Arduino sensors and actuators, a React.js dashboard backed by Firebase RTDB, and a tiered Nepali ANPR pipeline. Plate localization and character detection are performed using YOLOv8s, a fine-tuned 34-class CNN, and geometrical reconstruction to assemble individually detected characters into a full plate string. The object detection framework had 95.44% mAP@0.50 (97.92% & 93.09% for Recall and precision, respectively) after held-out tests on a dataset containing 867 images. Overall, the ANPR Pipeline had a whole-plate detection accuracy of 53.73% on raw 67 entry/exit pictures without cropping (36/67; 95% CI: 41.9–65.1%), using fuzzy whole-plate character matching with an 80% threshold. The occupancy detection component performed at 97.14% accuracy from 70 test samples manually inspected, while reservation, transaction log maintenance, and hazard detection capabilities were also demonstrated on the real-world system. These outcomes demonstrate the feasibility of combining localized ANPR technology with low-cost, IoT-enabled parking infrastructure in Nepal.",
@@ -32,14 +33,31 @@ function PaperCard({ paper, idx, isVisible }) {
       className="paper-card glass-panel"
       style={{ transitionDelay: `${idx * 120}ms` }}
     >
+      {/* Conference Image */}
+      {paper.imgName && (
+        <div className="paper-image-wrapper">
+          <img
+            src={`/assets/achievements/${paper.imgName}`}
+            alt={paper.title}
+            loading="lazy"
+            className="paper-image"
+          />
+          <span className={`paper-status-overlay status-${paper.status.toLowerCase().replace(/\s/g, '-')}`}>
+            {paper.status}
+          </span>
+        </div>
+      )}
+
       {/* Header Row */}
       <div className="paper-header">
         <div className="paper-icon-wrap">
           <BookOpen size={20} />
         </div>
-        <span className={`paper-status status-${paper.status.toLowerCase().replace(/\s/g, '-')}`}>
-          {paper.status}
-        </span>
+        {!paper.imgName && (
+          <span className={`paper-status status-${paper.status.toLowerCase().replace(/\s/g, '-')}`}>
+            {paper.status}
+          </span>
+        )}
       </div>
 
       {/* Title */}
