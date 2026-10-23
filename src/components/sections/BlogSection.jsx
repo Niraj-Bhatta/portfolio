@@ -38,6 +38,14 @@ const blogPosts = [
     readTime: '7 min read',
     mediumUrl: 'https://medium.com/@bhattaniraj559/nepal-had-the-technology-to-see-this-flood-coming-it-still-killed-over-1-500-people-1db1c235f467?sharedUserId=bhattaniraj559',
   },
+  {
+    id: 2,
+    title: 'How Temperature Changes LLM Responses: The Mathematics Behind More Predictable and Diverse Text',
+    excerpt: 'Language models generate text by predicting the next word. The temperature parameter adjusts the probability distribution of these predictions, controlling the model’s creativity and consistency.',
+    category: 'AI/ML',
+    readTime: '4 min read',
+    mediumUrl: 'https://medium.com/@bhattaniraj559/how-temperature-changes-llm-responses-the-mathematics-behind-more-predictable-and-diverse-text-4861d09d11ce?sharedUserId=bhattaniraj559',
+  },
 ];
 
 const CATEGORIES = ['All', 'AI/ML', 'IoT', 'Web', 'Other'];
