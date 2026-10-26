@@ -96,7 +96,7 @@ export default function CertificatesSection() {
     {
       id: "cert-iot-winner",
       title: "IoT Exhibition & Competition Winner",
-      issuer: "NCIT / CITC Tech Fest",
+      issuer: "NCIT AND CITC",
       date: "August 2024",
       category: "Achievements",
       credId: "NCIT-IOT-2024",
@@ -108,7 +108,7 @@ export default function CertificatesSection() {
     {
       id: "cert-aws-fundamentals",
       title: "AWS Cloud Practitioner Essentials",
-      issuer: "Amazon Web Services",
+      issuer: " Nepal Tek Community and NCIT",
       date: "November 2025",
       category: "Technical",
       credId: "AWS-CPE-9982L",
@@ -120,7 +120,7 @@ export default function CertificatesSection() {
     {
       id: "cert-prompt-engineering",
       title: "Generative AI & Prompt Engineering",
-      issuer: "Vanderbilt University / Coursera",
+      issuer: "Build Club",
       date: "July 2025",
       category: "Technical",
       credId: "COURSERA-PE-88421",
@@ -132,7 +132,7 @@ export default function CertificatesSection() {
     {
       id: "cert-django",
       title: "Django Web Development Specialist",
-      issuer: "Meta / Coursera",
+      issuer: "Next skills Academy",
       date: "September 2025",
       category: "Technical",
       credId: "META-DJ-77361",
@@ -144,7 +144,7 @@ export default function CertificatesSection() {
     {
       id: "cert-mern-bootcamp",
       title: "Full Stack Web Development (MERN)",
-      issuer: "MERN Dev Bootcamp",
+      issuer: "Evolve IT Hub",
       date: "December 2025",
       category: "Technical",
       credId: "MERN-BC-1102A",
@@ -180,7 +180,7 @@ export default function CertificatesSection() {
     {
       id: "cert-hardware-ncit",
       title: "Computer Hardware & Microcontroller Training",
-      issuer: "NCIT Student Chapter",
+      issuer: "NCIT and CITC",
       date: "April 2024",
       category: "Technical",
       credId: "NCIT-HW-5542",
@@ -192,7 +192,7 @@ export default function CertificatesSection() {
     {
       id: "cert-hardware-fellowship",
       title: "NCIT Hardware Fellowship Program",
-      issuer: "NCIT Robotics Club",
+      issuer: "Pulchwok Locus",
       date: "June 2024",
       category: "Technical",
       credId: "NCIT-HF-0092",
@@ -204,7 +204,7 @@ export default function CertificatesSection() {
     {
       id: "cert-orbit-1",
       title: "Orbit 1.0 National Hackathon",
-      issuer: "Orbit Committee",
+      issuer: "Engineers Vlogs",
       date: "May 2024",
       category: "Hackathons & Events",
       credId: "ORB1-PART-38",
@@ -216,7 +216,7 @@ export default function CertificatesSection() {
     {
       id: "cert-orbit-2",
       title: "Orbit 2.0 Technology Championship",
-      issuer: "Orbit Tech Fest",
+      issuer: "Engineers Vlogs",
       date: "February 2025",
       category: "Hackathons & Events",
       credId: "ORB2-PART-99",
@@ -227,8 +227,8 @@ export default function CertificatesSection() {
     },
     {
       id: "cert-revah-code",
-      title: "Revah Code Sprint & Hackathon",
-      issuer: "Revah Team",
+      title: "Revah Code Sprint Organizer ",
+      issuer: "Revah Teach and CITC",
       date: "October 2024",
       category: "Hackathons & Events",
       credId: "REV-CS-9912",
@@ -240,7 +240,7 @@ export default function CertificatesSection() {
     {
       id: "cert-tech-fest",
       title: "National Tech Festival Participant",
-      issuer: "CITC Association",
+      issuer: "NCIT College",
       date: "November 2024",
       category: "Hackathons & Events",
       credId: "TF-CITC-2024",
@@ -276,7 +276,7 @@ export default function CertificatesSection() {
     {
       id: "cert-leo-certifi",
       title: "Leo Club Outstanding Service & Leadership",
-      issuer: "Leo Club International / District 325",
+      issuer: "Leo Club International / District 325K",
       date: "July 2024",
       category: "Community & Leadership",
       credId: "LEO-SER-883",
@@ -288,7 +288,7 @@ export default function CertificatesSection() {
     {
       id: "cert-leo-id",
       title: "Official Leo Club Membership Credentials",
-      issuer: "Leo Club of NCIT",
+      issuer: "Leo Club of Kathmandu Bihani",
       date: "June 2023",
       category: "Community & Leadership",
       credId: "LEO-ID-8831",
@@ -300,7 +300,7 @@ export default function CertificatesSection() {
     {
       id: "cert-yfc",
       title: "Youth Fellowship Certificate",
-      issuer: "Youth Fellowship Club",
+      issuer: "Youth for Change Club",
       date: "December 2024",
       category: "Community & Leadership",
       credId: "YFC-MEM-445",
@@ -312,7 +312,7 @@ export default function CertificatesSection() {
     {
       id: "cert-photocomp",
       title: "CITC Visual Storytelling & Photography",
-      issuer: "CITC Media Wing",
+      issuer: "CITC and NCIT",
       date: "October 2024",
       category: "Achievements",
       credId: "CITC-PHOTO-09",
@@ -323,8 +323,8 @@ export default function CertificatesSection() {
     },
     {
       id: "cert-engineer-cv",
-      title: "Computer Engineering Coursework Excellence",
-      issuer: "NCIT / Pokhara University",
+      title: "Engineer your CV",
+      issuer: "IEEE KEC Branch",
       date: "October 2025",
       category: "Achievements",
       credId: "NCIT-ECE-CV",
