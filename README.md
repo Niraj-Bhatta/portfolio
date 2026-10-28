@@ -12,7 +12,7 @@
 
 <br />
 
-`React 19` &nbsp;•&nbsp; `Vite 8` &nbsp;•&nbsp; `Three.js` &nbsp;•&nbsp; `Vanilla CSS` &nbsp;•&nbsp; `EmailJS` &nbsp;•&nbsp; `Lucide Icons` &nbsp;•&nbsp; `Vercel / Netlify`
+`React 19` &nbsp;•&nbsp; `Vite 8` &nbsp;•&nbsp; `Three.js` &nbsp;•&nbsp; `Vanilla CSS` &nbsp;•&nbsp; `EmailJS` &nbsp;•&nbsp; `Lucide Icons` &nbsp;
 
 </div>
 
