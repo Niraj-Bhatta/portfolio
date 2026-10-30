@@ -12,7 +12,7 @@
 
 <br />
 
-`React 19` &nbsp;•&nbsp; `Vite 8` &nbsp;•&nbsp; `Three.js` &nbsp;•&nbsp; `Vanilla CSS` &nbsp;•&nbsp; `EmailJS` &nbsp;•&nbsp; `Lucide Icons` &nbsp;•&nbsp; `Vercel / Netlify`
+`React 19` &nbsp;•&nbsp; `Vite 8` &nbsp;•&nbsp; `Three.js` &nbsp;•&nbsp; `Vanilla CSS` &nbsp;•&nbsp; `EmailJS` &nbsp;•&nbsp; `Lucide Icons` &nbsp;
 
 </div>
 
@@ -66,7 +66,7 @@ The site pairs fluid motion and 3D particle effects with a clean, content-first 
 | 🎨 **Styling** | Vanilla CSS — Flexbox & Grid | — |
 | 🔣 **Icons** | [Lucide React](https://lucide.dev/) | `^1.21.0` |
 | 📧 **Email** | [EmailJS Browser](https://www.emailjs.com/) | `^4.4.1` |
-| ☁️ **Deployment** | Vercel / Netlify (ready) | — |
+| ☁️ **Deployment** | personal domain and cloudflare | - |
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
