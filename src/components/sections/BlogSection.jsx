@@ -46,6 +46,15 @@ const blogPosts = [
     readTime: '4 min read',
     mediumUrl: 'https://medium.com/@bhattaniraj559/how-temperature-changes-llm-responses-the-mathematics-behind-more-predictable-and-diverse-text-4861d09d11ce?sharedUserId=bhattaniraj559',
   },
+  {
+    id: 3,
+    title: 'Building a YouTube Video Chatbot with LangChain and RAG',
+    excerpt: 'Building a chatbot that can answer questions about a YouTube video using LangChain and RAG.',
+    category: 'AI/ML',
+    readTime: '5 min read',
+    mediumUrl: 'https://medium.com/@bhattaniraj559/building-a-youtube-video-chatbot-with-langchain-and-rag-2eaa8a6a90f7?sharedUserId=bhattaniraj559',
+  },
+  
 ];
 
 const CATEGORIES = ['All', 'AI/ML', 'IoT', 'Web', 'Other'];
