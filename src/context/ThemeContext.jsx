@@ -13,7 +13,7 @@ export function ThemeProvider({ children }) {
     } catch {
       // ignore localStorage errors (e.g. incognito)
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export function ThemeProvider({ children }) {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
