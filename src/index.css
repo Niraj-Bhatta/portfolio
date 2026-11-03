@@ -21,7 +21,7 @@
   --accent-blue-rgb: 0, 212, 255;
   --accent-purple-rgb: 124, 58, 237;
 
-  --nav-bg: rgba(10, 10, 10, 0);
+  --nav-bg: rgba(10, 10, 10, 0.35);
   --nav-bg-scrolled: rgba(10, 10, 10, 0.85);
   --footer-bg: #050505;
   --hero-overlay-start: rgba(10, 10, 10, 0.45);
@@ -63,8 +63,8 @@
   --accent-blue-rgb: 2, 132, 199;
   --accent-purple-rgb: 124, 58, 237;
 
-  --nav-bg: rgba(248, 250, 252, 0);
-  --nav-bg-scrolled: rgba(255, 255, 255, 0.9);
+  --nav-bg: rgba(255, 255, 255, 0.28);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.78);
   --footer-bg: #F1F5F9;
   --hero-overlay-start: rgba(248, 250, 252, 0.35);
   --hero-overlay-mid: rgba(248, 250, 252, 0.8);

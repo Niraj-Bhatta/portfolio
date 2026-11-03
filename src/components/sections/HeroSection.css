@@ -31,8 +31,9 @@
   width: 100%;
   height: 100%;
   z-index: 1;
+  background-color: #000;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
   overflow: hidden;
 }
 
@@ -48,9 +49,9 @@
   object-position: center top;
   opacity: 0.55;
   filter: saturate(1.2) brightness(var(--hero-video-brightness)) contrast(var(--hero-video-contrast));
-  background-color: var(--card-inner-bg);
+  background-color: transparent;
   display: block;
-  transition: opacity 1.5s ease-in-out, filter 0.4s ease;
+  transition: opacity 1.2s ease-in-out, filter 0.4s ease;
   
   /* Force GPU composite for expensive saturate/contrast rendering */
   transform: translate3d(0, 0, 0);
@@ -72,7 +73,7 @@
     var(--bg) 100%
   );
   z-index: 2;
-  transition: background 0.4s ease;
+  transition: opacity 1.2s ease-in-out, background 0.4s ease;
 }
 
 /* Hero Content */
@@ -722,11 +723,25 @@
   visibility: visible;
 }
 
-/* Video adjustments */
-.intro-playing .hero-video {
-  opacity: 0.8 !important; /* crisp visibility for cinematic background during intro */
+/* Video / Overlay adjustments during intro vs finished */
+.intro-playing .hero-overlay,
+.hero-container.intro-playing .hero-overlay {
+  opacity: 0 !important; /* Completely remove whitish overlay at starting of website */
+  pointer-events: none;
 }
 
-.intro-finished .hero-video {
+.intro-playing .hero-video,
+.hero-container.intro-playing .hero-video {
+  opacity: 1 !important; /* Full clarity, crisp and clear */
+  filter: saturate(1.1) brightness(1) contrast(1.05) !important; /* Clean natural colors, zero whitish haze */
+}
+
+.intro-finished .hero-overlay,
+.hero-container.intro-finished .hero-overlay {
+  opacity: 1;
+}
+
+.intro-finished .hero-video,
+.hero-container.intro-finished .hero-video {
   opacity: 0.55;
 }

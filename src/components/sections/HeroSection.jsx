@@ -205,7 +205,6 @@ export default function HeroSection({ introState, setIntroState }) {
 
   const [introStep, setIntroStep] = useState("reveal"); // 'reveal' | 'fadeout' | 'done'
   const [activeRow, setActiveRow] = useState("first"); // 'first' | 'second' | 'none'
-  const [videoSrc, setVideoSrc] = useState(null);
 
   // Detect low-end hardware, slow networks or reduced-motion preferences
   const [shouldSkipVideo] = useState(() => {
@@ -279,22 +278,12 @@ export default function HeroSection({ introState, setIntroState }) {
     };
   }, []);
 
-  // 2. Background Video Lazy Loader
-  useEffect(() => {
-    if (!shouldSkipVideo) {
-      const timer = setTimeout(() => {
-        setVideoSrc(true);
-      }, 150); // Defer to let critical assets render first
-      return () => clearTimeout(timer);
-    }
-  }, [shouldSkipVideo]);
-
-  // 3. Autoplay and Load Handler
+  // 2. Direct Video Autoplay and Load Handler (smooth playback without static photo popup)
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !videoSrc) return;
+    if (!video || shouldSkipVideo) return;
 
-    const handleCanPlay = () => {
+    const handleReady = () => {
       setIsVideoLoaded(true);
       const playPromise = video.play();
       if (playPromise !== undefined) {
@@ -304,23 +293,25 @@ export default function HeroSection({ introState, setIntroState }) {
       }
     };
 
-    if (video.readyState >= 3) {
-      handleCanPlay();
+    if (video.readyState >= 2) {
+      handleReady();
     } else {
-      video.addEventListener("canplay", handleCanPlay);
+      video.addEventListener("loadeddata", handleReady);
+      video.addEventListener("canplay", handleReady);
     }
 
     return () => {
       if (video) {
-        video.removeEventListener("canplay", handleCanPlay);
+        video.removeEventListener("loadeddata", handleReady);
+        video.removeEventListener("canplay", handleReady);
       }
     };
-  }, [videoSrc]);
+  }, [shouldSkipVideo]);
 
-  // 4. Video Visibility Sync (IntersectionObserver)
+  // 3. Video Visibility Sync (IntersectionObserver)
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !videoSrc || !isVideoLoaded) return;
+    if (!video || shouldSkipVideo || !isVideoLoaded) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -347,7 +338,7 @@ export default function HeroSection({ introState, setIntroState }) {
     return () => {
       if (video) observer.unobserve(video);
     };
-  }, [videoSrc, isVideoLoaded]);
+  }, [shouldSkipVideo, isVideoLoaded]);
 
   // 5. Cinematic Intro Overlay Phase Timers
   useEffect(() => {
@@ -405,11 +396,11 @@ export default function HeroSection({ introState, setIntroState }) {
     <section
       ref={sectionRef}
       id="hero"
-      className="hero-container"
+      className={`hero-container intro-${introState}`}
     >
-      {/* Cinematic Background Video / Poster Layer */}
+      {/* Cinematic Background Video Layer */}
       <div className={`hero-video-wrapper ${isVideoLoaded || shouldSkipVideo ? "visible" : ""}`}>
-        {!shouldSkipVideo && videoSrc ? (
+        {!shouldSkipVideo ? (
           <video
             ref={videoRef}
             className="hero-video"
@@ -417,17 +408,10 @@ export default function HeroSection({ introState, setIntroState }) {
             loop
             playsInline
             autoPlay
-            preload="metadata"
-            poster={heroPoster}
+            preload="auto"
           >
             <source src={heroVideoWebm} type="video/webm" />
             <source src={heroVideoMp4} type="video/mp4" />
-            <img
-              src={heroPoster}
-              alt="Hero Background Fallback"
-              className="hero-video-fallback-img"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
           </video>
         ) : (
           <img

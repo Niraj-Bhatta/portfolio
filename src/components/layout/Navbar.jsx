@@ -102,7 +102,7 @@ export default function Navbar() {
       <div className="navbar-content">
         {/* Logo */}
         <a href="#hero" className="navbar-logo" onClick={(e) => handleLinkClick(e, '#hero')}>
-          <div className="logo-badge"><img src={myPhoto} alt="NB" className="logo-badge" /></div>
+          <div className="logo-badge"><img src={myPhoto} alt="NB" className="logo-badge-img" /></div>
           <span className="logo-text">Niraj<span className="dot">.Bhatta</span></span>
         </a>
 
