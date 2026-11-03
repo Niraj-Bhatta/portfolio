@@ -215,7 +215,7 @@ export default function CertificatesSection() {
     },
     {
       id: "cert-orbit-2",
-      title: "Orbit 2.0 Technology Championship",
+      title: "Orbit 2.0 International Hackathon",
       issuer: "Engineers Vlogs",
       date: "February 2025",
       category: "Hackathons & Events",
