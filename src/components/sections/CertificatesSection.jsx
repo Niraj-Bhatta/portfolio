@@ -227,7 +227,7 @@ export default function CertificatesSection() {
     },
     {
       id: "cert-revah-code",
-      title: "Revah Code Sprint Organizer ",
+      title: "Revah Code Competition Organizer ",
       issuer: "Revah Teach and CITC",
       date: "October 2024",
       category: "Hackathons & Events",
@@ -239,7 +239,7 @@ export default function CertificatesSection() {
     },
     {
       id: "cert-tech-fest",
-      title: "National Tech Festival Participant",
+      title: "National Tech Festival Organizer",
       issuer: "NCIT College",
       date: "November 2024",
       category: "Hackathons & Events",

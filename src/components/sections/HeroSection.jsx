@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Github, Linkedin, Instagram, Facebook, Youtube, MailIcon, Medium } from "../ui/SocialIcons";
 import "./HeroSection.css";
-import heroVideoMp4 from "../../assets/niraj-video-compressed.mp4";
+import heroVideoHd from "../../assets/niraj-video.mp4";
 import heroVideoWebm from "../../assets/niraj-video-compressed.webm";
 import heroPoster from "../../assets/hero-poster.jpg";
 
@@ -283,27 +283,38 @@ export default function HeroSection({ introState, setIntroState }) {
     const video = videoRef.current;
     if (!video || shouldSkipVideo) return;
 
-    const handleReady = () => {
-      setIsVideoLoaded(true);
+    video.defaultMuted = true;
+    video.muted = true;
+
+    const startPlayback = () => {
       const playPromise = video.play();
       if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          if (err.name !== 'AbortError') console.log("Autoplay error: ", err);
-        });
+        playPromise
+          .then(() => {
+            setIsVideoLoaded(true);
+          })
+          .catch((err) => {
+            if (err.name !== 'AbortError') console.log("Autoplay error: ", err);
+            setIsVideoLoaded(true);
+          });
+      } else {
+        setIsVideoLoaded(true);
       }
     };
 
-    if (video.readyState >= 2) {
-      handleReady();
+    if (video.readyState >= 3) {
+      startPlayback();
     } else {
-      video.addEventListener("loadeddata", handleReady);
-      video.addEventListener("canplay", handleReady);
+      video.addEventListener("canplay", startPlayback, { once: true });
     }
+
+    const onPlaying = () => setIsVideoLoaded(true);
+    video.addEventListener("playing", onPlaying, { once: true });
 
     return () => {
       if (video) {
-        video.removeEventListener("loadeddata", handleReady);
-        video.removeEventListener("canplay", handleReady);
+        video.removeEventListener("canplay", startPlayback);
+        video.removeEventListener("playing", onPlaying);
       }
     };
   }, [shouldSkipVideo]);
@@ -409,9 +420,12 @@ export default function HeroSection({ introState, setIntroState }) {
             playsInline
             autoPlay
             preload="auto"
+            controls={false}
+            disablePictureInPicture
+            disableRemotePlayback
           >
+            <source src={heroVideoHd} type="video/mp4" />
             <source src={heroVideoWebm} type="video/webm" />
-            <source src={heroVideoMp4} type="video/mp4" />
           </video>
         ) : (
           <img

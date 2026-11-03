@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Terminal } from 'lucide-react';
 import ThemeToggle from '../ui/ThemeToggle';
 import './Navbar.css';
-import myPhoto from '../../assets/hero-nav.png';
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,7 +102,11 @@ export default function Navbar() {
       <div className="navbar-content">
         {/* Logo */}
         <a href="#hero" className="navbar-logo" onClick={(e) => handleLinkClick(e, '#hero')}>
-          <div className="logo-badge"><img src={myPhoto} alt="NB" className="logo-badge-img" /></div>
+          <div className="logo-badge">
+            <span className="logo-monogram">
+              <span className="mono-n">N</span><span className="mono-b">B</span>
+            </span>
+          </div>
           <span className="logo-text">Niraj<span className="dot">.Bhatta</span></span>
         </a>
 
