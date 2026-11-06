@@ -75,7 +75,7 @@ const HeroContent = React.memo(({ isFinished, isAnimating, handleCtaClick, visit
           View Projects
         </a>
         <a
-          href="./assets/resume/resume.pdf"
+          href="./assets/resume/Niraj_Bhatta_Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-resume"
@@ -174,7 +174,7 @@ function useVisitCounter() {
 
   useEffect(() => {
     const STORAGE_KEY = "portfolio_visit_count";
-    
+
     const raw = localStorage.getItem(STORAGE_KEY);
     const prev = raw ? parseInt(raw, 10) : 0;
     const next = prev + 1;
@@ -185,7 +185,7 @@ function useVisitCounter() {
     const launchDate = new Date('2024-01-01').getTime();
     const now = new Date().getTime();
     const daysElapsed = Math.max(0, Math.floor((now - launchDate) / (1000 * 60 * 60 * 24)));
-    
+
     // Base: 1250 initial + ~7 visits per day on average
     const baseGlobalCount = 1250 + (daysElapsed * 7);
 
@@ -237,9 +237,9 @@ export default function HeroSection({ introState, setIntroState }) {
     const startTypewriter = () => {
       if (firstNameRef.current) firstNameRef.current.textContent = "";
       if (lastNameRef.current) lastNameRef.current.textContent = "";
-      
+
       setActiveRow("first");
-      
+
       let i = 0;
       const typeFirst = () => {
         if (isCancelled) return;
