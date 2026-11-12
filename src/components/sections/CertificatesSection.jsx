@@ -8,7 +8,7 @@ function CertificateVector({ title, issuer, date, credId, accentColor }) {
   return (
     <svg viewBox="0 0 800 500" width="100%" height="100%" className="certificate-svg" xmlns="http://www.w3.org/2000/svg">
       {/* Background Grid */}
-      <rect width="800" height="500" rx="16" fill="#0A0F1D" stroke="rgba(255,255,255,0.06)" strokeWidth="2"/>
+      <rect width="800" height="500" rx="16" fill="#0A0F1D" stroke="rgba(255,255,255,0.06)" strokeWidth="2" />
       <defs>
         <radialGradient id={`glow-${credId}`} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor={accentColor} stopOpacity="0.15" />
@@ -19,13 +19,13 @@ function CertificateVector({ title, issuer, date, credId, accentColor }) {
           <stop offset="100%" stopColor="#7c3aed" />
         </linearGradient>
       </defs>
-      
+
       {/* Decorative Glow */}
       <circle cx="400" cy="250" r="300" fill={`url(#glow-${credId})`} />
-      
+
       {/* Inner border */}
       <rect x="25" y="25" width="750" height="450" rx="12" fill="none" stroke={`url(#border-${credId})`} strokeWidth="1.5" strokeOpacity="0.4" />
-      
+
       {/* Technical Hexagons/Decors */}
       <path d="M 40 40 L 70 40 L 55 60 Z" fill={accentColor} opacity="0.4" />
       <path d="M 760 40 L 730 40 L 745 60 Z" fill={accentColor} opacity="0.4" />
@@ -38,7 +38,7 @@ function CertificateVector({ title, issuer, date, credId, accentColor }) {
 
       {/* Header */}
       <text x="400" y="80" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="12" letterSpacing="6" fontFamily="monospace">CERTIFICATE OF ACHIEVEMENT</text>
-      
+
       {/* Badge Icon */}
       <g transform="translate(376, 110)">
         <path d="M24 0L48 14V42L24 56L0 42V14L24 0Z" fill="none" stroke={accentColor} strokeWidth="2" />
@@ -50,7 +50,7 @@ function CertificateVector({ title, issuer, date, credId, accentColor }) {
       <text x="400" y="210" textAnchor="middle" fill="#FFFFFF" fontSize="24" fontWeight="bold" fontFamily="sans-serif">NIRAJ BHATTA</text>
       <text x="400" y="240" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="14" fontFamily="sans-serif">has successfully completed the coursework for</text>
       <text x="400" y="280" textAnchor="middle" fill={accentColor} fontSize="22" fontWeight="800" fontFamily="sans-serif">{title}</text>
-      
+
       {/* Divider */}
       <line x1="300" y1="315" x2="500" y2="315" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
 
@@ -69,6 +69,8 @@ function CertificateVector({ title, issuer, date, credId, accentColor }) {
     </svg>
   );
 }
+
+const isPdf = (imgName) => typeof imgName === 'string' && imgName.toLowerCase().endsWith('.pdf');
 
 export default function CertificatesSection() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -332,6 +334,17 @@ export default function CertificatesSection() {
       accentColor: "#7c3aed",
       imgName: "Engineer_cv.png",
       desc: "A certificate verifying stellar performance in advanced academic courses, labs, and engineering design projects."
+    }, {
+      id: "figma-basics",
+      title: "Figma Basics Workshop",
+      issuer: "Engineers Vlogs",
+      date: "October 2024",
+      category: "Hackathons & Events",
+      credId: "FIGMA-BS-334",
+      verifyLink: "https://ncit.edu.np",
+      accentColor: "#7c3aed",
+      imgName: "Figma.pdf",
+      desc: "A certificate verifying stellar performance in advanced academic courses, labs, and engineering design projects."
     }
   ];
 
@@ -346,9 +359,9 @@ export default function CertificatesSection() {
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      id="certificates" 
+    <section
+      ref={sectionRef}
+      id="certificates"
       className={`section-container certificates-section scroll-reveal ${isVisible ? 'visible' : ''}`}
     >
       <div className="glow-bg certificates-glow" style={{ bottom: '10%', right: '5%', width: '320px', height: '320px', backgroundColor: 'var(--accent-purple)' }} />
@@ -375,17 +388,35 @@ export default function CertificatesSection() {
             <div className="cert-badge-icon" style={{ backgroundColor: `${cert.accentColor}1A`, color: cert.accentColor }}>
               <Award size={20} />
             </div>
-            
-            {/* Thumbnail: Sourced or Fallback Vector mockup */}
+
+            {/* Thumbnail: PDF preview / image / vector fallback */}
             <div className="cert-thumbnail" onClick={() => setSelectedCert(cert)}>
-              {imageErrors[cert.id] ? (
+              {isPdf(cert.imgName) ? (
+                <object
+                  data={`/assets/certificates/${cert.imgName}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                  type="application/pdf"
+                  className="cert-pdf-thumb"
+                  aria-label={cert.title}
+                >
+                  {/* Fallback if browser can't render inline PDF */}
+                  <div className="vector-thumbnail-wrapper">
+                    <CertificateVector
+                      title={cert.title}
+                      issuer={cert.issuer}
+                      date={cert.date}
+                      credId={cert.credId}
+                      accentColor={cert.accentColor}
+                    />
+                  </div>
+                </object>
+              ) : imageErrors[cert.id] ? (
                 <div className="vector-thumbnail-wrapper">
-                  <CertificateVector 
-                    title={cert.title} 
-                    issuer={cert.issuer} 
-                    date={cert.date} 
-                    credId={cert.credId} 
-                    accentColor={cert.accentColor} 
+                  <CertificateVector
+                    title={cert.title}
+                    issuer={cert.issuer}
+                    date={cert.date}
+                    credId={cert.credId}
+                    accentColor={cert.accentColor}
                   />
                 </div>
               ) : (
@@ -429,13 +460,20 @@ export default function CertificatesSection() {
             <div className="lightbox-body">
               {/* Left: Certificate Visual or Vector */}
               <div className="lightbox-visual">
-                {imageErrors[selectedCert.id] ? (
-                  <CertificateVector 
-                    title={selectedCert.title} 
-                    issuer={selectedCert.issuer} 
-                    date={selectedCert.date} 
-                    credId={selectedCert.credId} 
-                    accentColor={selectedCert.accentColor} 
+                {isPdf(selectedCert.imgName) ? (
+                  <iframe
+                    src={`/assets/certificates/${selectedCert.imgName}`}
+                    title={selectedCert.title}
+                    className="lightbox-pdf"
+                    style={{ width: '100%', height: '420px', border: 'none', borderRadius: '8px', background: '#fff' }}
+                  />
+                ) : imageErrors[selectedCert.id] ? (
+                  <CertificateVector
+                    title={selectedCert.title}
+                    issuer={selectedCert.issuer}
+                    date={selectedCert.date}
+                    credId={selectedCert.credId}
+                    accentColor={selectedCert.accentColor}
                   />
                 ) : (
                   <img
